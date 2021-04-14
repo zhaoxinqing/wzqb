@@ -1,3 +1,5 @@
-.idea
+# ignore .idea folder
+.idea/
 
-.vscode
+# ignore .vscode folder
+.vscode/
