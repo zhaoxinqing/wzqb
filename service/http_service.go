@@ -19,22 +19,32 @@ func GetHttpServe(method string, requestURL string, token string, param interfac
 	var (
 		client = &http.Client{}
 	)
-
+	//
 	info, err := json.Marshal(param)
-	req, err := http.NewRequest(method, requestURL, strings.NewReader(string(info)))
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", token)
+	if err != nil {
+		return
+	}
+	//
+	request, err := http.NewRequest(method, requestURL, strings.NewReader(string(info)))
+	if err != nil {
+		return
+	}
+	// add Headers ...
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("Authorization", token)
+	//
+	response, err := client.Do(request)
+	if err != nil {
+		return
+	}
+	defer response.Body.Close()
 
-	resp, err := client.Do(req)
+	// get responseBody
+	responseBody, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return
 	}
-	defer resp.Body.Close()
-	bodyContent, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return
-	}
-	err = json.Unmarshal(bodyContent, &result)
+	err = json.Unmarshal(responseBody, &result)
 	if err != nil {
 		return
 	}
