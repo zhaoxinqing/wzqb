@@ -1,0 +1,15 @@
+gorm:
+  debug: true
+  db_type: postgres
+  max_lifetime: 7200
+  max_open_conns: 150
+  max_idle_conns: 50
+postgres:
+  host: localhost
+  port: 9900
+  user: postgres
+  password: 
+  name: kilroy
+  driver: postgresql
+  max_idle_con: 50
+  max_open_con: 150 

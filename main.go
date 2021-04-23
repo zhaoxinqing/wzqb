@@ -2,11 +2,22 @@ package main
 
 import (
 	"Kilroy/app/controller"
+	"Kilroy/config"
+	"Kilroy/models"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+
+	// 加载配置
+	configPath := "config/env.yaml"
+	conf, err := config.LoadConfig(configPath)
+	if err != nil {
+		panic(err)
+	}
+	initDB(conf)
+
 	// 创建一个不包含中间件的路由器
 	router := gin.New()
 
@@ -26,4 +37,9 @@ func main() {
 	}
 
 	router.Run(":8900")
+}
+
+func initDB(config *config.Config) {
+	models.InitDB(config)
+	// models.Migration()
 }
