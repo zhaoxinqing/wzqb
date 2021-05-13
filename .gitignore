@@ -1,5 +1,9 @@
 # ignore .idea folder
 .idea/
 
+# 配置文件
+config/*
+
 # ignore .vscode folder
-/.vscode/
+.vscode/*
+.vscode/settings.json
