@@ -4,12 +4,14 @@ import (
 	"Kilroy/app/controller"
 	"Kilroy/config"
 	"Kilroy/models"
+	"Kilroy/utils"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-
+	msg := "测试打印耗时："
+	utils.GetTime(msg)
 	// 加载配置
 	configPath := "config/env.yaml"
 	conf, err := config.LoadConfig(configPath)
@@ -40,6 +42,7 @@ func main() {
 }
 
 func initDB(config *config.Config) {
+
 	models.InitDB(config)
 	// models.Migration()
 }
