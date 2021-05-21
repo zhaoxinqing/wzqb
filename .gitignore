@@ -3,3 +3,7 @@
 
 # ignore .vscode folder
 /.vscode/
+
+docs/
+
+__debug_bin

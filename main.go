@@ -3,7 +3,6 @@ package main
 import (
 	"Kilroy/app/controller"
 	"Kilroy/config"
-	"Kilroy/models"
 	"Kilroy/utils"
 
 	"github.com/gin-gonic/gin"
@@ -36,13 +35,16 @@ func main() {
 	v2 := router.Group("/v2")
 	{
 		v2.POST("/upload", controller.UploadFile) // 文件上传
+		// v2.POST("/upload/csv", controller.UploadCSV) // 文件上传
+		v2.POST("/upload/csv", controller.SortCSV) // 分类上传
+
 	}
 
-	router.Run(":8900")
+	router.Run(":8990")
 }
 
 func initDB(config *config.Config) {
 
-	models.InitDB(config)
+	// models.InitDB(config)
 	// models.Migration()
 }
