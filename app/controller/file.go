@@ -41,9 +41,11 @@ func UploadCSV(c *gin.Context) {
 	)
 	file, _ := c.FormFile("upload")
 	filename := file.Filename
+	_, err := os.Create("./docs/upload/")
 	filePath := "./docs/upload/" + fmt.Sprintf("%d", time.Now().Unix()) + filename
 	filePath2 := "./docs/upload/" + fmt.Sprintf("%d", time.Now().Unix()) + "m" + filename
-	err := c.SaveUploadedFile(file, filePath)
+
+	err = c.SaveUploadedFile(file, filePath)
 	if err != nil {
 	}
 
@@ -54,7 +56,7 @@ func UploadCSV(c *gin.Context) {
 		return
 	}
 	writer := csv.NewWriter(f)
-	var header = []string{"grid_id", "city", "province", "area", "geometry", "pred_sale_area", "score", "grid_type", "grid_size", "prediction_explain"}
+	var header = []string{"grid_id", "city", "pred_sale_area", "score", "grid_type", "grid_size", "jingwei"}
 	writer.Write(header)
 	//打开流
 	clientsFile, err := os.Open(filePath)
@@ -70,7 +72,7 @@ func UploadCSV(c *gin.Context) {
 		}
 		// MULTIPOLYGON(((119.191542517377 29.9370940653411,119.193205716491 29.937091073857,119.193205571661 29.9354243638227,119.191542372492 29.9354273553102,119.191542517377 29.9370940653411)))
 		// 113.146029,34.421098;113.155038,34.421098;113.155038,34.412089;113.146029,34.412089;113.146029,34.421098
-		gerom = line[4]
+		gerom = line[6]
 		if len(gerom) > 15 {
 			strs_arr := strings.Split(gerom, `;`)
 			str001 := "MULTIPOLYGON((("
@@ -82,7 +84,7 @@ func UploadCSV(c *gin.Context) {
 				}
 			}
 			str001 += ")))"
-			line[4] = str001
+			line[6] = str001
 
 			writer.Write(line)
 			writer.Flush()

@@ -2,26 +2,22 @@ package main
 
 import (
 	"Kilroy/app/controller"
+	"Kilroy/app/models"
 	"Kilroy/config"
-	"Kilroy/utils"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	msg := "测试打印耗时："
-	utils.GetTime(msg)
-	// 加载配置
-	configPath := "config/env.yaml"
-	conf, err := config.LoadConfig(configPath)
-	if err != nil {
-		panic(err)
-	}
-	initDB(conf)
 
-	// 创建一个不包含中间件的路由器
+	var c config.Conf
+	conf := c.GetConf()
+	fmt.Println(conf)
+
+	InitDB(conf)
+
 	router := gin.New()
-
 	// Simple group: v1
 	app := router.Group("/v1")
 	{
@@ -30,21 +26,17 @@ func main() {
 		app.PUT("/somePut", controller.TestPut)          // 更新
 		app.DELETE("/someDelete", controller.TestDelete) // 删除
 	}
-
 	// Simple group: v2
 	v2 := router.Group("/v2")
 	{
-		v2.POST("/upload", controller.UploadFile) // 文件上传
-		// v2.POST("/upload/csv", controller.UploadCSV) // 文件上传
-		v2.POST("/upload/csv", controller.SortCSV) // 分类上传
-
+		v2.POST("/upload", controller.UploadFile)    // 文件上传
+		v2.POST("/upload/csv", controller.UploadCSV) // 文件上传
+		// v2.POST("/upload/csv", controller.SortCSV) // 分类上传
 	}
-
 	router.Run(":8990")
 }
 
-func initDB(config *config.Config) {
-
-	// models.InitDB(config)
-	// models.Migration()
+func InitDB(config *config.Conf) {
+	models.InitDB(config)
+	models.Migration()
 }

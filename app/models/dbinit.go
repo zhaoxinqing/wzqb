@@ -9,22 +9,12 @@ import (
 )
 
 // InitDB 初始化数据库配置
-func InitDB(config *config.Config) {
+func InitDB(config *config.Conf) {
 	var gdb *gorm.DB
-	// gdb, err = gorm.Open(config.Gorm.DBType, config.Gorm.DSN)
-	gdb, err := gorm.Open(postgres.Open(config.Gorm.DSN))
+	gdb, err := gorm.Open(postgres.Open(config.DB.Host))
 	if err != nil {
 		panic(err)
 	}
-	//  默认使用单数表命名
-	// gdb.SingularTable(true)
-	// if config.Gorm.Debug {
-	// 	gdb.LogMode(true)
-	// 	// gdb.SetLogger(log.New(os.Stdout, "\r\n", 0))
-	// }
-	// gdb.DB().SetMaxIdleConns(config.Gorm.MaxIdleConns)
-	// gdb.DB().SetMaxOpenConns(config.Gorm.MaxOpenConns)
-	// gdb.DB().SetConnMaxLifetime(time.Duration(config.Gorm.MaxLifetime) * time.Second)
 	DB = gdb
 }
 

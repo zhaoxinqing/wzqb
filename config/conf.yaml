@@ -1,0 +1,14 @@
+db: 
+  host: localhost
+  port: 9900
+  user: postgres
+  password: zhaoxinqing
+  name: kilroy
+  driver: postgresql
+redis: 
+  host: localhost2
+  port: 10010
+  user: redis
+  password: zhaoxinqing02
+  name: kilory02
+  driver: redis
