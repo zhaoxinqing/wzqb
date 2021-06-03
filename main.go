@@ -15,7 +15,7 @@ func main() {
 	conf := c.GetConf()
 	fmt.Println(conf)
 
-	InitDB(conf)
+	// InitDB(conf)
 
 	router := gin.New()
 	// Simple group: v1
@@ -31,7 +31,11 @@ func main() {
 	{
 		v2.POST("/upload", controller.UploadFile)    // 文件上传
 		v2.POST("/upload/csv", controller.UploadCSV) // 文件上传
-		// v2.POST("/upload/csv", controller.SortCSV) // 分类上传
+		v2.POST("/upload/sort", controller.SortCSV)  // 分类上传
+
+		// feature分类求和
+		v2.POST("/upload/feature", controller.SortFeature) //
+		v2.POST("/upload/doc", controller.DocFeature)      //
 	}
 	router.Run(":8990")
 }
