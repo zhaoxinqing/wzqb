@@ -10,12 +10,11 @@ import (
 )
 
 func main() {
-
 	var c config.Conf
 	conf := c.GetConf()
 	fmt.Println(conf)
 
-	// InitDB(conf)
+	InitDB(conf)
 
 	router := gin.New()
 	// Simple group: v1
@@ -41,6 +40,6 @@ func main() {
 }
 
 func InitDB(config *config.Conf) {
-	models.InitDB(config)
-	models.Migration()
+	models.InitDB(config) // 初始化数据库
+	models.Migration()    // 数据库表迁移（自创建数据库）
 }

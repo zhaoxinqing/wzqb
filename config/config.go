@@ -17,7 +17,6 @@ type DB struct {
 	Port     string `yaml:"port"`
 	User     string `yaml:"user"`
 	Password string `yaml:"password"`
-	Driver   string `yaml:"driver"`
 }
 type Redis struct {
 	Host     string `yaml:"host"`
