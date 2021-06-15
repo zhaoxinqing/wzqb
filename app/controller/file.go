@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"Kilroy/app/common"
+	"Kilroy/app/constant"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
@@ -21,7 +21,7 @@ func UploadFile(c *gin.Context) {
 	if err != nil {
 	}
 	c.String(200, "Success")
-	// common.ResSuccess(c, "postAdmin")
+	// constant.ResSuccess(c, "postAdmin")
 }
 
 type client struct {
@@ -100,7 +100,7 @@ func UploadCSV(c *gin.Context) {
 	//遍历clients，每个结构体参数用client来获取，并按照需求进行处理
 
 	c.String(200, "Success")
-	common.ResSuccess(c, "postAdmin")
+	constant.ResSuccess(c, "postAdmin")
 }
 
 func SortCSV(c *gin.Context) {
@@ -188,7 +188,7 @@ func SortCSV(c *gin.Context) {
 			}
 		}
 	}
-	common.ResSuccess(c, "Success")
+	constant.ResSuccess(c, "Success")
 }
 
 func SortFeature(c *gin.Context) {
@@ -265,7 +265,7 @@ func SortFeature(c *gin.Context) {
 		}
 		writer.Flush()
 	}
-	common.ResSuccess(c, "postAdmin")
+	constant.ResSuccess(c, "postAdmin")
 }
 
 type Features struct {

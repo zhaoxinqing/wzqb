@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"Kilroy/app/common"
+	"Kilroy/app/constant"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
@@ -152,7 +152,7 @@ func DocFeature(c *gin.Context) {
 			writer.Flush()
 		}
 	}
-	common.ResSuccess(c, "postAdmin")
+	constant.ResSuccess(c, "postAdmin")
 }
 
 // // 二、拆分因子

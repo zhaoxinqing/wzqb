@@ -1,45 +1,31 @@
 package main
 
 import (
-	"Kilroy/app/controller"
+	"Kilroy/app"
 	"Kilroy/app/models"
-	"Kilroy/config"
+
 	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	var c config.Conf
+
+	// 加载数据库
+	var c models.Conf
 	conf := c.GetConf()
 	fmt.Println(conf)
-
 	InitDB(conf)
 
+	// 路由注册
 	router := gin.New()
-	// Simple group: v1
-	app := router.Group("/v1")
-	{
-		app.GET("/someGet", controller.TestGet)          // 获取
-		app.POST("/somePost", controller.TestPost)       // 创建
-		app.PUT("/somePut", controller.TestPut)          // 更新
-		app.DELETE("/someDelete", controller.TestDelete) // 删除
-	}
-	// Simple group: v2
-	v2 := router.Group("/v2")
-	{
-		v2.POST("/upload", controller.UploadFile)    // 文件上传
-		v2.POST("/upload/csv", controller.UploadCSV) // 文件上传
-		v2.POST("/upload/sort", controller.SortCSV)  // 分类上传
-
-		// feature分类求和
-		v2.POST("/upload/feature", controller.SortFeature) //
-		v2.POST("/upload/doc", controller.DocFeature)      //
-	}
+	v1 := router.Group("/v1")
+	app.RegisterV1(v1)
+	app.RegisterV2(v1)
 	router.Run(":8990")
 }
 
-func InitDB(config *config.Conf) {
+func InitDB(config *models.Conf) {
 	models.InitDB(config) // 初始化数据库
 	models.Migration()    // 数据库表迁移（自创建数据库）
 }

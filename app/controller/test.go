@@ -1,14 +1,14 @@
 package controller
 
 import (
-	"Kilroy/app/common"
+	"Kilroy/app/constant"
 
 	"github.com/gin-gonic/gin"
 )
 
 // 获取
 func TestGet(c *gin.Context) {
-	common.ResSuccess(c, "getAdmin")
+	constant.ResSuccess(c, "getAdmin")
 }
 
 // 创建
@@ -16,22 +16,22 @@ func TestPost(c *gin.Context) {
 
 	param, msg := GetTestPostParam(c)
 	if msg != "" {
-		common.ResFail(c, msg)
+		constant.ResFail(c, msg)
 		return
 	}
 
 	a := param.Name + param.Operation
-	common.ResSuccess(c, a)
+	constant.ResSuccess(c, a)
 }
 
 // 更新
 func TestPut(c *gin.Context) {
-	common.ResSuccess(c, "putAdmin")
+	constant.ResSuccess(c, "putAdmin")
 }
 
 // 删除
 func TestDelete(c *gin.Context) {
-	common.ResSuccess(c, "deleteAdmin")
+	constant.ResSuccess(c, "deleteAdmin")
 }
 
 type PostParam struct {
