@@ -105,18 +105,38 @@ func UploadCSV(c *gin.Context) {
 
 func SortCSV(c *gin.Context) {
 	var (
-		header = []string{"grid_id", "city", "pred_sale_area", "score", "grid_type", "grid_size", "prediction_explain"}
+		// header = []string{"grid_id", "city", "province", "area", "pred_sale_area", "score", "grid_type", "grid_size", "jingwei", "prediction_explain"}
 		path1  = "./docs/upload/" + "郑州.csv"
 		path2  = "./docs/upload/" + "上海.csv"
 		path3  = "./docs/upload/" + "深圳.csv"
 		path4  = "./docs/upload/" + "武汉.csv"
 		path5  = "./docs/upload/" + "北京.csv"
+		path6  = "./docs/upload/" + "重庆.csv"
+		path7  = "./docs/upload/" + "杭州.csv"
+		path8  = "./docs/upload/" + "天津.csv"
+		path9  = "./docs/upload/" + "合肥.csv"
+		path10 = "./docs/upload/" + "青岛.csv"
+		path11 = "./docs/upload/" + "成都.csv"
+		path12 = "./docs/upload/" + "长沙.csv"
+		path13 = "./docs/upload/" + "西安.csv"
+		path14 = "./docs/upload/" + "宁波.csv"
+		path15 = "./docs/upload/" + "苏州.csv"
+		path16 = "./docs/upload/" + "南京.csv"
+		path17 = "./docs/upload/" + "广州.csv"
+		path18 = "./docs/upload/" + "佛山.csv"
+		path19 = "./docs/upload/" + "东莞.csv"
+		path20 = "./docs/upload/" + "厦门.csv"
 	)
 
-	file, _ := c.FormFile("upload")
-	uploadFilePath := "./docs/upload/" + file.Filename
+	file, err := c.FormFile("upload")
+	if err != nil {
+		fmt.Println("Error: ", err)
+		return
+	}
+	// err = os.Mkdir("docs/upload", 0666)
+	uploadFilePath := "docs/upload/" + file.Filename
 
-	_ = c.SaveUploadedFile(file, uploadFilePath)
+	err = c.SaveUploadedFile(file, uploadFilePath)
 
 	// // 写入新文件
 	// f1, _ := os.Create(path1)
@@ -124,6 +144,21 @@ func SortCSV(c *gin.Context) {
 	// f3, _ := os.Create(path3)
 	// f4, _ := os.Create(path4)
 	// f5, _ := os.Create(path5)
+	// f6, _ := os.Create(path6)
+	// f7, _ := os.Create(path7)
+	// f8, _ := os.Create(path8)
+	// f9, _ := os.Create(path9)
+	// f10, _ := os.Create(path10)
+	// f11, _ := os.Create(path11)
+	// f12, _ := os.Create(path12)
+	// f13, _ := os.Create(path13)
+	// f14, _ := os.Create(path14)
+	// f15, _ := os.Create(path15)
+	// f16, _ := os.Create(path16)
+	// f17, _ := os.Create(path17)
+	// f18, _ := os.Create(path18)
+	// f19, _ := os.Create(path19)
+	// f20, _ := os.Create(path20)
 
 	// 追加
 	f1, _ := os.OpenFile(path1, os.O_WRONLY|os.O_APPEND, 0666)
@@ -131,18 +166,63 @@ func SortCSV(c *gin.Context) {
 	f3, _ := os.OpenFile(path3, os.O_WRONLY|os.O_APPEND, 0666)
 	f4, _ := os.OpenFile(path4, os.O_WRONLY|os.O_APPEND, 0666)
 	f5, _ := os.OpenFile(path5, os.O_WRONLY|os.O_APPEND, 0666)
+	f6, _ := os.OpenFile(path6, os.O_WRONLY|os.O_APPEND, 0666)
+	f7, _ := os.OpenFile(path7, os.O_WRONLY|os.O_APPEND, 0666)
+	f8, _ := os.OpenFile(path8, os.O_WRONLY|os.O_APPEND, 0666)
+	f9, _ := os.OpenFile(path9, os.O_WRONLY|os.O_APPEND, 0666)
+	f10, _ := os.OpenFile(path10, os.O_WRONLY|os.O_APPEND, 0666)
+	f11, _ := os.OpenFile(path11, os.O_WRONLY|os.O_APPEND, 0666)
+	f12, _ := os.OpenFile(path12, os.O_WRONLY|os.O_APPEND, 0666)
+	f13, _ := os.OpenFile(path13, os.O_WRONLY|os.O_APPEND, 0666)
+	f14, _ := os.OpenFile(path14, os.O_WRONLY|os.O_APPEND, 0666)
+	f15, _ := os.OpenFile(path15, os.O_WRONLY|os.O_APPEND, 0666)
+	f16, _ := os.OpenFile(path16, os.O_WRONLY|os.O_APPEND, 0666)
+	f17, _ := os.OpenFile(path17, os.O_WRONLY|os.O_APPEND, 0666)
+	f18, _ := os.OpenFile(path18, os.O_WRONLY|os.O_APPEND, 0666)
+	f19, _ := os.OpenFile(path19, os.O_WRONLY|os.O_APPEND, 0666)
+	f20, _ := os.OpenFile(path20, os.O_WRONLY|os.O_APPEND, 0666)
 
 	writer1 := csv.NewWriter(f1)
 	writer2 := csv.NewWriter(f2)
 	writer3 := csv.NewWriter(f3)
 	writer4 := csv.NewWriter(f4)
 	writer5 := csv.NewWriter(f5)
+	writer6 := csv.NewWriter(f6)
+	writer7 := csv.NewWriter(f7)
+	writer8 := csv.NewWriter(f8)
+	writer9 := csv.NewWriter(f9)
+	writer10 := csv.NewWriter(f10)
+	writer11 := csv.NewWriter(f11)
+	writer12 := csv.NewWriter(f12)
+	writer13 := csv.NewWriter(f13)
+	writer14 := csv.NewWriter(f14)
+	writer15 := csv.NewWriter(f15)
+	writer16 := csv.NewWriter(f16)
+	writer17 := csv.NewWriter(f17)
+	writer18 := csv.NewWriter(f18)
+	writer19 := csv.NewWriter(f19)
+	writer20 := csv.NewWriter(f20)
 
-	writer1.Write(header)
-	writer2.Write(header)
-	writer3.Write(header)
-	writer4.Write(header)
-	writer5.Write(header)
+	// writer1.Write(header)
+	// writer2.Write(header)
+	// writer3.Write(header)
+	// writer4.Write(header)
+	// writer5.Write(header)
+	// writer6.Write(header)
+	// writer7.Write(header)
+	// writer8.Write(header)
+	// writer9.Write(header)
+	// writer10.Write(header)
+	// writer11.Write(header)
+	// writer12.Write(header)
+	// writer13.Write(header)
+	// writer14.Write(header)
+	// writer15.Write(header)
+	// writer16.Write(header)
+	// writer17.Write(header)
+	// writer18.Write(header)
+	// writer19.Write(header)
+	// writer20.Write(header)
 
 	//打开流
 	clientsFile, _ := os.Open(uploadFilePath)
@@ -156,7 +236,7 @@ func SortCSV(c *gin.Context) {
 			fmt.Println("Error: ", err)
 			return
 		}
-		gerom = line[6]
+		gerom = line[8]
 		if len(gerom) > 15 {
 			strs_arr := strings.Split(gerom, `;`)
 			str001 := "MULTIPOLYGON((("
@@ -168,7 +248,7 @@ func SortCSV(c *gin.Context) {
 				}
 			}
 			str001 += ")))"
-			line[6] = str001
+			line[8] = str001
 			switch line[1] {
 			case "郑州市":
 				writer1.Write(line)
@@ -185,6 +265,51 @@ func SortCSV(c *gin.Context) {
 			case "北京市":
 				writer5.Write(line)
 				writer5.Flush()
+			case "重庆市":
+				writer6.Write(line)
+				writer6.Flush()
+			case "杭州市":
+				writer7.Write(line)
+				writer7.Flush()
+			case "天津市":
+				writer8.Write(line)
+				writer8.Flush()
+			case "合肥市":
+				writer9.Write(line)
+				writer9.Flush()
+			case "青岛市":
+				writer10.Write(line)
+				writer10.Flush()
+			case "成都市":
+				writer11.Write(line)
+				writer11.Flush()
+			case "长沙市":
+				writer12.Write(line)
+				writer12.Flush()
+			case "西安市":
+				writer13.Write(line)
+				writer13.Flush()
+			case "宁波市":
+				writer14.Write(line)
+				writer14.Flush()
+			case "苏州市":
+				writer15.Write(line)
+				writer15.Flush()
+			case "南京市":
+				writer16.Write(line)
+				writer16.Flush()
+			case "广州市":
+				writer17.Write(line)
+				writer17.Flush()
+			case "佛山市":
+				writer18.Write(line)
+				writer18.Flush()
+			case "东莞市":
+				writer19.Write(line)
+				writer19.Flush()
+			case "厦门市":
+				writer20.Write(line)
+				writer20.Flush()
 			}
 		}
 	}

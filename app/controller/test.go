@@ -13,13 +13,11 @@ func TestGet(c *gin.Context) {
 
 // 创建
 func TestPost(c *gin.Context) {
-
 	param, msg := GetTestPostParam(c)
 	if msg != "" {
 		constant.ResFail(c, msg)
 		return
 	}
-
 	a := param.Name + param.Operation
 	constant.ResSuccess(c, a)
 }

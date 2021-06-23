@@ -39,11 +39,11 @@ type MyJsonName struct {
 func DocFeature(c *gin.Context) {
 	file, _ := c.FormFile("upload")
 	filename := file.Filename
-	_, err := os.Create("./docs/upload/")
+	// _, err := os.Create("./docs/upload/")
 	filePath := "./docs/upload/" + fmt.Sprintf("%d", time.Now().Unix()) + filename
 	newFilePath := "./docs/upload/" + "new" + fmt.Sprintf("%d", time.Now().Unix()) + filename
 
-	err = c.SaveUploadedFile(file, filePath)
+	err := c.SaveUploadedFile(file, filePath)
 	if err != nil {
 	}
 	// 写入新文件
@@ -53,7 +53,7 @@ func DocFeature(c *gin.Context) {
 		return
 	}
 	writer := csv.NewWriter(f)
-	var header = []string{"grid_id", "city", "area", "province", "score", "pred_sale_area", "grid_type", "grid_size", "jingwei", "prediction_explain", "Business", "Shopping", "People", "Traffic", "Home"}
+	var header = []string{"grid_id", "city", "area", "province", "score", "pred_sale_area", "grid_type", "grid_size", "jingwei", "prediction_explain", "Business", "Shopping", "People", "Traffic", "Home", "All"}
 	writer.Write(header)
 	writer.Flush()
 	//打开流
@@ -96,7 +96,6 @@ func DocFeature(c *gin.Context) {
 		if len(featureStr) > 30 {
 			var myJsonName MyJsonName
 			json.Unmarshal([]byte(featureStr), &myJsonName)
-			fmt.Println(myJsonName)
 			lists := myJsonName.ShapValuesBySlot.ShapValues
 			for _, list := range lists {
 				mod[list.Label] = list.Value
@@ -148,6 +147,8 @@ func DocFeature(c *gin.Context) {
 				mod["f_cnt_plot"] + mod["f_avg_area"] + mod["f_avg_d_area"] + mod["f_max_area"] + mod["f_max_d_area"] +
 				mod["f_min_area"] + mod["f_min_d_area"] + mod["f_total_area"]
 			line = append(line, fmt.Sprint(home))
+			all := business + shopping + people + traffic + home
+			line = append(line, fmt.Sprint(all))
 			writer.Write(line)
 			writer.Flush()
 		}
