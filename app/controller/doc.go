@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"Kilroy/app/constant"
+	"Kilroy/app/common"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
@@ -22,18 +22,6 @@ type MyJsonName struct {
 			Value float64 `json:"value"`
 		} `json:"shap_values"`
 	} `json:"shap_values_by_slot"`
-	// ShapValuesBySlotSign struct {
-	// 	ExpectedValue interface{} `json:"expected_value"`
-	// 	ShapValues    []struct {
-	// 		Label   string `json:"label"`
-	// 		Payload []struct {
-	// 			Name  string `json:"name"`
-	// 			Value int64  `json:"value"`
-	// 		} `json:"payload"`
-	// 		Sign  string  `json:"sign"`
-	// 		Value float64 `json:"value"`
-	// 	} `json:"shap_values"`
-	// } `json:"shap_values_by_slot_sign"`
 }
 
 func DocFeature(c *gin.Context) {
@@ -153,7 +141,7 @@ func DocFeature(c *gin.Context) {
 			writer.Flush()
 		}
 	}
-	constant.ResSuccess(c, "postAdmin")
+	common.ResSuccess(c, "postAdmin")
 }
 
 // // 二、拆分因子

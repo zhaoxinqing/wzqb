@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"Kilroy/app/constant"
+	"Kilroy/app/common"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
@@ -38,7 +38,7 @@ type client struct {
 
 func UploadCSV(c *gin.Context) {
 	var (
-	// clients []client
+		header = []string{"grid_id", "city", "pred_sale_area", "score", "grid_type", "grid_size", "jingwei"}
 	)
 	file, _ := c.FormFile("upload")
 	filename := file.Filename
@@ -48,6 +48,8 @@ func UploadCSV(c *gin.Context) {
 
 	err = c.SaveUploadedFile(file, filePath)
 	if err != nil {
+		fmt.Println("Error: ", err)
+		return
 	}
 
 	// 写入新文件
@@ -57,7 +59,6 @@ func UploadCSV(c *gin.Context) {
 		return
 	}
 	writer := csv.NewWriter(f)
-	var header = []string{"grid_id", "city", "pred_sale_area", "score", "grid_type", "grid_size", "jingwei"}
 	writer.Write(header)
 	//打开流
 	clientsFile, err := os.Open(filePath)
@@ -71,8 +72,6 @@ func UploadCSV(c *gin.Context) {
 			fmt.Println("Error: ", err)
 			return
 		}
-		// MULTIPOLYGON(((119.191542517377 29.9370940653411,119.193205716491 29.937091073857,119.193205571661 29.9354243638227,119.191542372492 29.9354273553102,119.191542517377 29.9370940653411)))
-		// 113.146029,34.421098;113.155038,34.421098;113.155038,34.412089;113.146029,34.412089;113.146029,34.421098
 		gerom = line[6]
 		if len(gerom) > 15 {
 			strs_arr := strings.Split(gerom, `;`)
@@ -94,13 +93,62 @@ func UploadCSV(c *gin.Context) {
 				fmt.Println(err)
 			}
 		}
-		// line = append(line, "geometry")
 	}
-
-	//遍历clients，每个结构体参数用client来获取，并按照需求进行处理
-
 	c.String(200, "Success")
-	constant.ResSuccess(c, "postAdmin")
+	common.ResSuccess(c, "postAdmin")
+}
+
+func FindSH(c *gin.Context) {
+	path := "./docs/upload/" + "上海.csv"
+	file, err := c.FormFile("upload")
+	if err != nil {
+		fmt.Println("Error: ", err)
+		return
+	}
+	// err = os.Mkdir("docs/upload", 0666)
+	uploadFilePath := "docs/upload/" + file.Filename
+	err = c.SaveUploadedFile(file, uploadFilePath)
+
+	// 写入新文件
+	// f1, _ := os.Create(path)
+
+	// 追加
+	f1, _ := os.OpenFile(path, os.O_WRONLY|os.O_APPEND, 0666)
+
+	writer1 := csv.NewWriter(f1)
+	//打开流
+	clientsFile, _ := os.Open(uploadFilePath)
+	reader := csv.NewReader(clientsFile)
+	for {
+		var gerom string
+		line, err := reader.Read()
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			fmt.Println("Error: ", err)
+			return
+		}
+		gerom = line[8]
+		if len(gerom) > 15 {
+			strs_arr := strings.Split(gerom, `;`)
+			str001 := "MULTIPOLYGON((("
+			for idx, strs := range strs_arr {
+				str := strings.Split(strs, `,`)
+				str001 = str001 + str[0] + " " + str[1]
+				if idx != 4 {
+					str001 += ","
+				}
+			}
+			str001 += ")))"
+			line[8] = str001
+			switch line[1] {
+			case "上海市":
+				writer1.Write(line)
+				writer1.Flush()
+			}
+		}
+	}
+	common.ResSuccess(c, "Success")
 }
 
 func SortCSV(c *gin.Context) {
@@ -313,7 +361,7 @@ func SortCSV(c *gin.Context) {
 			}
 		}
 	}
-	constant.ResSuccess(c, "Success")
+	common.ResSuccess(c, "Success")
 }
 
 func SortFeature(c *gin.Context) {
@@ -390,7 +438,7 @@ func SortFeature(c *gin.Context) {
 		}
 		writer.Flush()
 	}
-	constant.ResSuccess(c, "postAdmin")
+	common.ResSuccess(c, "postAdmin")
 }
 
 type Features struct {
