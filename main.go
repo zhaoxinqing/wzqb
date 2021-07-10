@@ -2,9 +2,7 @@ package main
 
 import (
 	"Kilroy/app"
-	"Kilroy/app/models"
-
-	"fmt"
+	"Kilroy/app/model"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,9 +10,8 @@ import (
 func main() {
 
 	// 加载数据库
-	var c models.Conf
+	var c model.Conf
 	conf := c.GetConf()
-	fmt.Println(conf)
 	InitDB(conf)
 
 	// 路由注册
@@ -25,7 +22,7 @@ func main() {
 	router.Run(":8990")
 }
 
-func InitDB(config *models.Conf) {
-	models.InitDB(config) // 初始化数据库
-	models.Migration()    // 数据库表迁移（自创建数据库）
+func InitDB(config *model.Conf) {
+	model.InitDB(config) // 初始化数据库
+	model.Migration()    // 数据库表迁移（自创建数据库）
 }

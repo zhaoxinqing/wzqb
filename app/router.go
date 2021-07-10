@@ -21,6 +21,5 @@ func RegisterV2(v2 *gin.RouterGroup) {
 	v2.POST("/upload/csv", controller.UploadCSV)       // 文件上传
 	v2.POST("/upload/sort", controller.SortCSV)        // 分类上传
 	v2.POST("/upload/feature", controller.SortFeature) //
-	v2.POST("/upload/doc", controller.DocFeature)      // 分类统计
-
+	v2.POST("/upload/doc", controller.FindSH)          //
 }

@@ -7,8 +7,9 @@ import (
 )
 
 type ResSucModel struct {
-	Code int64       `json:"code"`
-	Data interface{} `json:"data"`
+	Code    int64       `json:"code"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data"`
 }
 
 type ResFalModel struct {
@@ -18,7 +19,7 @@ type ResFalModel struct {
 
 // ResSuccess 响应成功
 func ResSuccess(c *gin.Context, data interface{}) {
-	ret := ResSucModel{Code: SUCCESS_CODE, Data: data}
+	ret := ResSucModel{Code: SUCCESS_CODE, Message: "ok", Data: data}
 	ResponseJSON(c, http.StatusOK, &ret)
 }
 

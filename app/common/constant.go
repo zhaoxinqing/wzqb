@@ -6,15 +6,7 @@ const (
 )
 
 var (
-	ErrParam         = "传入参数有误"
+	ErrParam         = "传入参数有误_"
 	ErrAccountSystem = "账户系统响应失败"
 	ErrFormat        = "格式不正确"
 )
-
-// // ControllerError ...
-// type ControllerError struct {
-// 	Code     int    `json:"code"`
-// 	Langkey  string `json:"langkey"`
-// 	Message  string `json:"msg"`
-// 	Moreinfo string `json:"moreinfo"`
-// }
