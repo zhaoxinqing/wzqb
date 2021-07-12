@@ -19,11 +19,13 @@ func TestGet(c *gin.Context) {
 // 创建
 func TestPost(c *gin.Context) {
 	var a auth.A
+	// 入参解析校验
 	err := c.BindJSON(&a)
 	if err != nil {
 		common.ResFalse(c, common.ErrParam)
 		return
 	}
+	// 逻辑处理
 	b, err := logic.Demo(a)
 	if err != nil {
 		common.ResFalse(c, err.Error())

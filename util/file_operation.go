@@ -1,4 +1,4 @@
-package service
+package util
 
 import (
 	"archive/zip"
@@ -23,7 +23,7 @@ var (
 func CreateEmptyFile() {
 	newFile, err = os.Create("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Println(newFile)
 	newFile.Close()
@@ -38,7 +38,7 @@ func TruncateFile() {
 	// 传入0则会清空文件。
 	err := os.Truncate("test.txt", 100)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }
 
@@ -51,7 +51,7 @@ func GetFileInfo() {
 	// 如果文件不存在，则返回错误
 	fileInfo, err = os.Stat("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	fmt.Println("File name:", fileInfo.Name())
 	fmt.Println("Size in bytes:", fileInfo.Size())
@@ -69,7 +69,7 @@ func RenameAndMoveFile() {
 	newPath := "test2.txt"
 	err := os.Rename(originalPath, newPath)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }
 
@@ -77,7 +77,7 @@ func RenameAndMoveFile() {
 func DeleteFile() {
 	err := os.Remove("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }
 
@@ -86,7 +86,7 @@ func OpenAndCloseFile() {
 	// 简单地以只读的方式打开。下面的例子会介绍读写的例子。
 	file, err := os.Open("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	file.Close()
 	// OpenFile提供更多的选项。
@@ -94,7 +94,7 @@ func OpenAndCloseFile() {
 	// 第二个是打开时的属性
 	file, err = os.OpenFile("test.txt", os.O_APPEND, 0666)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	file.Close()
 	// 下面的属性可以单独使用，也可以组合使用。
@@ -173,25 +173,25 @@ func ReadAndCopyFile() {
 	// 打开原始文件
 	originalFile, err := os.Open("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer originalFile.Close()
 	// 创建新的文件作为目标文件
 	newFile, err := os.Create("test_copy.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer newFile.Close()
 	// 从源中复制字节到目标文件
 	bytesWritten, err := io.Copy(newFile, originalFile)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Copied %d bytes.", bytesWritten)
 	// 将文件内容flush到硬盘中
 	err = newFile.Sync()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }
 
@@ -207,14 +207,14 @@ func WriteFile() {
 		0666,
 	)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer file.Close()
 	// 写字节到文件中
 	byteSlice := []byte("Bytes!\n")
 	bytesWritten, err := file.Write(byteSlice)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Wrote %d bytes.\n", bytesWritten)
 }
@@ -225,7 +225,7 @@ func WriteFile() {
 func QuickWriteFile() {
 	err := ioutil.WriteFile("test.txt", []byte("Hi\n"), 0666)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }
 
@@ -237,7 +237,7 @@ func BufferWriteFile() {
 	// 打开文件，只写
 	file, err := os.OpenFile("test.txt", os.O_WRONLY, 0666)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer file.Close()
 	// 为这个文件创建buffered writer
@@ -247,7 +247,7 @@ func BufferWriteFile() {
 		[]byte{65, 66, 67},
 	)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Bytes written: %d\n", bytesWritten)
 	// 写字符串到buffer
@@ -256,7 +256,7 @@ func BufferWriteFile() {
 		"Buffered string\n",
 	)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Bytes written: %d\n", bytesWritten)
 	// 检查缓存中的字节数
@@ -265,7 +265,7 @@ func BufferWriteFile() {
 	// 还有多少字节可用（未使用的缓存大小）
 	bytesAvailable := bufferedWriter.Available()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Available buffer: %d\n", bytesAvailable)
 	// 写内存buffer到硬盘
@@ -275,7 +275,7 @@ func BufferWriteFile() {
 	bufferedWriter.Reset(bufferedWriter)
 	bytesAvailable = bufferedWriter.Available()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Available buffer: %d\n", bytesAvailable)
 	// 重新设置缓存的大小。
@@ -290,7 +290,7 @@ func BufferWriteFile() {
 	// resize后检查缓存的大小
 	bytesAvailable = bufferedWriter.Available()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Available buffer: %d\n", bytesAvailable)
 }
@@ -301,7 +301,7 @@ func LimitReadFile() {
 	// 打开文件，只读
 	file, err := os.Open("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer file.Close()
 	// 从文件中读取len(b)字节的文件。
@@ -310,7 +310,7 @@ func LimitReadFile() {
 	byteSlice := make([]byte, 16)
 	bytesRead, err := file.Read(byteSlice)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Number of bytes read: %d\n", bytesRead)
 	log.Printf("Data read: %s\n", byteSlice)
@@ -321,14 +321,14 @@ func ControllReadFile() {
 	// Open file for reading
 	file, err := os.Open("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	// file.Read()可以读取一个小文件到大的byte slice中，
 	// 但是io.ReadFull()在文件的字节数小于byte slice字节数的时候会返回错误
 	byteSlice := make([]byte, 2)
 	numBytesRead, err := io.ReadFull(file, byteSlice)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Number of bytes read: %d\n", numBytesRead)
 	log.Printf("Data read: %s\n", byteSlice)
@@ -339,14 +339,14 @@ func LessReadFile() {
 	// 打开文件，只读
 	file, err := os.Open("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	byteSlice := make([]byte, 512)
 	minBytes := 8
 	// io.ReadAtLeast()在不能得到最小的字节的时候会返回错误，但会把已读的文件保留
 	numBytesRead, err := io.ReadAtLeast(file, byteSlice, minBytes)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Number of bytes read: %d\n", numBytesRead)
 	log.Printf("Data read: %s\n", byteSlice)
@@ -356,14 +356,14 @@ func LessReadFile() {
 func AllRead() {
 	file, err := os.Open("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	// os.File.Read(), io.ReadFull() 和
 	// io.ReadAtLeast() 在读取之前都需要一个固定大小的byte slice。
 	// 但ioutil.ReadAll()会读取reader(这个例子中是file)的每一个字节，然后把字节slice返回。
 	data, err := ioutil.ReadAll(file)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	fmt.Printf("Data as hex: %x\n", data)
 	fmt.Printf("Data as string: %s\n", data)
@@ -375,7 +375,7 @@ func QuickReadFile() {
 	// 读取文件到byte slice中
 	data, err := ioutil.ReadFile("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Data read: %s\n", data)
 }
@@ -388,38 +388,38 @@ func BufferReadFile() {
 	// 打开文件，创建buffered reader
 	file, err := os.Open("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	bufferedReader := bufio.NewReader(file)
 	// 得到字节，当前指针不变
 	byteSlice := make([]byte, 5)
 	byteSlice, err = bufferedReader.Peek(5)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	fmt.Printf("Peeked at 5 bytes: %s\n", byteSlice)
 	// 读取，指针同时移动
 	numBytesRead, err := bufferedReader.Read(byteSlice)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	fmt.Printf("Read %d bytes: %s\n", numBytesRead, byteSlice)
 	// 读取一个字节, 如果读取不成功会返回Error
 	myByte, err := bufferedReader.ReadByte()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	fmt.Printf("Read 1 byte: %c\n", myByte)
 	// 读取到分隔符，包含分隔符，返回byte slice
 	dataBytes, err := bufferedReader.ReadBytes('\n')
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	fmt.Printf("Read bytes: %s\n", dataBytes)
 	// 读取到分隔符，包含分隔符，返回字符串
 	dataString, err := bufferedReader.ReadString('\n')
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	fmt.Printf("Read string: %s\n", dataString)
 	//这个例子读取了很多行，所以test.txt应该包含多行文本才不至于出错
@@ -438,7 +438,7 @@ func BufferReadFile() {
 func ScannerFile() {
 	file, err := os.Open("test.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	scanner := bufio.NewScanner(file)
 	// 缺省的分隔函数是bufio.ScanLines,我们这里使用ScanWords。
@@ -452,7 +452,7 @@ func ScannerFile() {
 		if err == nil {
 			log.Println("Scan completed and reached EOF")
 		} else {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
 	}
 	// 得到数据，Bytes() 或者 Text()
@@ -465,7 +465,7 @@ func ZipFile() {
 	// 创建一个打包文件
 	outFile, err := os.Create("test.zip")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer outFile.Close()
 	// 创建zip writer
@@ -482,17 +482,17 @@ func ZipFile() {
 	for _, file := range filesToArchive {
 		fileWriter, err := zipWriter.Create(file.Name)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
 		_, err = fileWriter.Write([]byte(file.Body))
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
 	}
 	// 清理
 	err = zipWriter.Close()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }
 
@@ -500,7 +500,7 @@ func ZipFile() {
 func UnzipFile() {
 	zipReader, err := zip.OpenReader("test.zip")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer zipReader.Close()
 	// 遍历打包文件中的每一文件/文件夹
@@ -508,7 +508,7 @@ func UnzipFile() {
 		// 打包文件中的文件就像普通的一个文件对象一样
 		zippedFile, err := file.Open()
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
 		defer zippedFile.Close()
 		// 指定抽取的文件名。
@@ -533,13 +533,13 @@ func UnzipFile() {
 				file.Mode(),
 			)
 			if err != nil {
-				log.Fatal(err)
+				fmt.Println(err)
 			}
 			defer outputFile.Close()
 			// 通过io.Copy简洁地复制文件内容
 			_, err = io.Copy(outputFile, zippedFile)
 			if err != nil {
-				log.Fatal(err)
+				fmt.Println(err)
 			}
 		}
 	}
@@ -549,7 +549,7 @@ func UnzipFile() {
 func RarFile() {
 	outputFile, err := os.Create("test.txt.gz")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	gzipWriter := gzip.NewWriter(outputFile)
 	defer gzipWriter.Close()
@@ -557,7 +557,7 @@ func RarFile() {
 	// 我们不必关心它是如何压缩的，还是像普通的writer一样操作即可。
 	_, err = gzipWriter.Write([]byte("Gophers rule!\n"))
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Println("Compressed data written to file.")
 }
@@ -569,23 +569,23 @@ func UnRarFile() {
 	// 它的内容不是一个文件，而是一个内存流
 	gzipFile, err := os.Open("test.txt.gz")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	gzipReader, err := gzip.NewReader(gzipFile)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer gzipReader.Close()
 	// 解压缩到一个writer,它是一个file writer
 	outfileWriter, err := os.Create("unzipped.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer outfileWriter.Close()
 	// 复制内容
 	_, err = io.Copy(outfileWriter, gzipReader)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }
 
@@ -599,29 +599,29 @@ func OtherFileOperation() {
 	// 在系统临时文件夹中创建一个临时文件夹
 	tempDirPath, err := ioutil.TempDir("", "myTempDir")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	fmt.Println("Temp dir created:", tempDirPath)
 	// 在临时文件夹中创建临时文件
 	tempFile, err := ioutil.TempFile(tempDirPath, "myTempFile.txt")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	fmt.Println("Temp file created:", tempFile.Name())
 	// ... 做一些操作 ...
 	// 关闭文件
 	err = tempFile.Close()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	// 删除我们创建的资源
 	err = os.Remove(tempFile.Name())
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	err = os.Remove(tempDirPath)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }
 
@@ -629,17 +629,20 @@ func OtherFileOperation() {
 func HTTPDownloadFile() {
 	newFile, err := os.Create("devdungeon.html")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer newFile.Close()
 	url := "http://www.devdungeon.com/archive"
 	response, err := http.Get(url)
+	if err != nil {
+		fmt.Println(err)
+	}
 	defer response.Body.Close()
 	// 将HTTP response Body中的内容写入到文件
 	// Body满足reader接口，因此我们可以使用ioutil.Copy
 	numBytesWritten, err := io.Copy(newFile, response.Body)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	log.Printf("Downloaded %d byte file.\n", numBytesWritten)
 }

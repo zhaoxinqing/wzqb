@@ -1,6 +1,9 @@
-package model
+package util
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 // 时间转换
 type Time time.Time
@@ -21,4 +24,11 @@ func (t Time) MarshalJSON() ([]byte, error) {
 	b = time.Time(t).AppendFormat(b, timeFormart)
 	b = append(b, '"')
 	return b, nil
+}
+
+func GetTime(msg string) {
+	start := time.Now()
+	defer func(start time.Time) {
+		fmt.Println(msg, time.Since(start))
+	}(start)
 }
