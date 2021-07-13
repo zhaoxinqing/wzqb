@@ -32,3 +32,18 @@ func GetTime(msg string) {
 		fmt.Println(msg, time.Since(start))
 	}(start)
 }
+
+// 耗时 1
+func GetUsageTime1() {
+	start := time.Now()
+	defer func(start time.Time) {
+		fmt.Println("耗时：", time.Since(start))
+	}(start)
+}
+
+// 耗时 2
+func GetUsageTime2() {
+	beginTime := time.Now()
+	endTime := time.Since(beginTime)
+	fmt.Println("耗时：", endTime)
+}

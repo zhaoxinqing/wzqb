@@ -6,31 +6,28 @@ import (
 )
 
 func main() {
-	var (
-		args = os.Args
-	)
+	args := os.Args
 	if len(args) < 1 {
 		fmt.Println("任务名称不能为空")
-	} else {
-		switch args[1] {
-		case "aa":
-			fmt.Println("这是测试")
-		case "deleteReport":
-			deleteReportFiles()
-		default:
-			fmt.Println("Do Nothing")
-		}
+	}
+	switch args[1] {
+	case "test":
+		fmt.Println("这是测试")
+	case "del_temp_dir":
+		delTempDir()
+	default:
+		fmt.Println("Do Nothing")
 	}
 	os.Exit(0)
 }
 
-// go run script/script.go aa
-// go run script/script.go deleteReport
-
-//删除目录
-func deleteReportFiles() {
-	err := os.RemoveAll("./docs/report")
+// 清理临时目录
+func delTempDir() {
+	err := os.RemoveAll("./doc/temp")
 	if err != nil {
 		fmt.Println(err)
 	}
 }
+
+// go run script/script.go aa
+// go run script/script.go deleteReport

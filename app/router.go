@@ -9,10 +9,13 @@ import (
 // RegisterRouterSys ...
 func RegisterV1(v1 *gin.RouterGroup) {
 	// 个人中心
-	v1.GET("/someGet", controller.TestGet)          // 获取
-	v1.POST("/somePost", controller.TestPost)       // 创建
-	v1.PUT("/somePut", controller.TestPut)          // 更新
-	v1.DELETE("/someDelete", controller.TestDelete) // 删除
+	v1.GET("/someGet", controller.TestGet)       // 获取
+	v1.POST("/somePost", controller.TestPost)    // 创建
+	v1.PUT("/somePut", controller.TestPut)       // 更新
+	v1.DELETE("/someDelete", controller.TestPut) // 删除
+
+	v1.POST("/api/test/upload/table", controller.UploadTable)
+	v1.POST("/api/test/upload/html_to_pdf", controller.HtmlToPDF)
 }
 
 // RegisterRouterSys ...

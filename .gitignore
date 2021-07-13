@@ -4,7 +4,7 @@
 # ignore .vscode folder
 /.vscode/
 
-docs/
+doc/
 
 __debug_bin
 

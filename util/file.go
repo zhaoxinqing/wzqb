@@ -10,7 +10,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path"
 	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -40,6 +42,29 @@ func TruncateFile() {
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+// ExtractFileType 从文件路径中提取文件类型
+func ExtractFileType(filePath string) (fileType string) {
+	var (
+		dotChar  = "."
+		dotIndex = strings.LastIndex(filePath, dotChar)
+	)
+	if dotIndex >= 0 {
+		fileType = filePath[dotIndex+1:]
+	} else {
+		fileType = ""
+	}
+	if len(fileType) > 0 {
+		fileType = strings.ToLower(fileType)
+	}
+	return
+}
+
+// 根据文件后缀获取文件格式
+func GetFileType(a string) (result string) {
+	result = path.Ext(a)
+	return
 }
 
 var (
