@@ -1,4 +1,4 @@
-package controller
+package ctrl
 
 import (
 	"Kilroy/app/common"
@@ -13,7 +13,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func UploadFile(c *gin.Context) {
+type File struct{}
+
+func (i File) UploadFile(c *gin.Context) {
 	file, _ := c.FormFile("upload")
 	filename := file.Filename
 	filePath := "./docs/upload/" + fmt.Sprintf("%d", time.Now().Unix()) + filename
@@ -36,7 +38,7 @@ type client struct {
 	GridSize     string `json:"grid_size"`
 }
 
-func UploadCSV(c *gin.Context) {
+func (i File) UploadCSV(c *gin.Context) {
 	var (
 		header = []string{"grid_id", "city", "pred_sale_area", "score", "grid_type", "grid_size", "jingwei"}
 	)
@@ -98,7 +100,7 @@ func UploadCSV(c *gin.Context) {
 	common.ResSuccess(c, "postAdmin")
 }
 
-func FindSH(c *gin.Context) {
+func (i File) FindSH(c *gin.Context) {
 	path := "./docs/upload/" + "上海.csv"
 	file, err := c.FormFile("upload")
 	if err != nil {
@@ -151,29 +153,13 @@ func FindSH(c *gin.Context) {
 	common.ResSuccess(c, "Success")
 }
 
-func SortCSV(c *gin.Context) {
+func (i File) SortCSV(c *gin.Context) {
 	var (
-		// header = []string{"grid_id", "city", "province", "area", "pred_sale_area", "score", "grid_type", "grid_size", "jingwei", "prediction_explain"}
-		path1  = "./docs/upload/" + "郑州.csv"
-		path2  = "./docs/upload/" + "上海.csv"
-		path3  = "./docs/upload/" + "深圳.csv"
-		path4  = "./docs/upload/" + "武汉.csv"
-		path5  = "./docs/upload/" + "北京.csv"
-		path6  = "./docs/upload/" + "重庆.csv"
-		path7  = "./docs/upload/" + "杭州.csv"
-		path8  = "./docs/upload/" + "天津.csv"
-		path9  = "./docs/upload/" + "合肥.csv"
-		path10 = "./docs/upload/" + "青岛.csv"
-		path11 = "./docs/upload/" + "成都.csv"
-		path12 = "./docs/upload/" + "长沙.csv"
-		path13 = "./docs/upload/" + "西安.csv"
-		path14 = "./docs/upload/" + "宁波.csv"
-		path15 = "./docs/upload/" + "苏州.csv"
-		path16 = "./docs/upload/" + "南京.csv"
-		path17 = "./docs/upload/" + "广州.csv"
-		path18 = "./docs/upload/" + "佛山.csv"
-		path19 = "./docs/upload/" + "东莞.csv"
-		path20 = "./docs/upload/" + "厦门.csv"
+		// header = []string{"id", "city", "province", "area", "pred_sale_area", "score", "grid_type", "grid_size", "jingwei", "prediction_explain"}
+		path1 = "./doc/upload/" + "郑州.csv"
+		path2 = "./doc/upload/" + "上海.csv"
+		path3 = "./doc/upload/" + "深圳.csv"
+		path4 = "./doc/upload/" + "武汉.csv"
 	)
 
 	file, err := c.FormFile("upload")
@@ -191,92 +177,27 @@ func SortCSV(c *gin.Context) {
 	// f2, _ := os.Create(path2)
 	// f3, _ := os.Create(path3)
 	// f4, _ := os.Create(path4)
-	// f5, _ := os.Create(path5)
-	// f6, _ := os.Create(path6)
-	// f7, _ := os.Create(path7)
-	// f8, _ := os.Create(path8)
-	// f9, _ := os.Create(path9)
-	// f10, _ := os.Create(path10)
-	// f11, _ := os.Create(path11)
-	// f12, _ := os.Create(path12)
-	// f13, _ := os.Create(path13)
-	// f14, _ := os.Create(path14)
-	// f15, _ := os.Create(path15)
-	// f16, _ := os.Create(path16)
-	// f17, _ := os.Create(path17)
-	// f18, _ := os.Create(path18)
-	// f19, _ := os.Create(path19)
-	// f20, _ := os.Create(path20)
 
 	// 追加
 	f1, _ := os.OpenFile(path1, os.O_WRONLY|os.O_APPEND, 0666)
 	f2, _ := os.OpenFile(path2, os.O_WRONLY|os.O_APPEND, 0666)
 	f3, _ := os.OpenFile(path3, os.O_WRONLY|os.O_APPEND, 0666)
 	f4, _ := os.OpenFile(path4, os.O_WRONLY|os.O_APPEND, 0666)
-	f5, _ := os.OpenFile(path5, os.O_WRONLY|os.O_APPEND, 0666)
-	f6, _ := os.OpenFile(path6, os.O_WRONLY|os.O_APPEND, 0666)
-	f7, _ := os.OpenFile(path7, os.O_WRONLY|os.O_APPEND, 0666)
-	f8, _ := os.OpenFile(path8, os.O_WRONLY|os.O_APPEND, 0666)
-	f9, _ := os.OpenFile(path9, os.O_WRONLY|os.O_APPEND, 0666)
-	f10, _ := os.OpenFile(path10, os.O_WRONLY|os.O_APPEND, 0666)
-	f11, _ := os.OpenFile(path11, os.O_WRONLY|os.O_APPEND, 0666)
-	f12, _ := os.OpenFile(path12, os.O_WRONLY|os.O_APPEND, 0666)
-	f13, _ := os.OpenFile(path13, os.O_WRONLY|os.O_APPEND, 0666)
-	f14, _ := os.OpenFile(path14, os.O_WRONLY|os.O_APPEND, 0666)
-	f15, _ := os.OpenFile(path15, os.O_WRONLY|os.O_APPEND, 0666)
-	f16, _ := os.OpenFile(path16, os.O_WRONLY|os.O_APPEND, 0666)
-	f17, _ := os.OpenFile(path17, os.O_WRONLY|os.O_APPEND, 0666)
-	f18, _ := os.OpenFile(path18, os.O_WRONLY|os.O_APPEND, 0666)
-	f19, _ := os.OpenFile(path19, os.O_WRONLY|os.O_APPEND, 0666)
-	f20, _ := os.OpenFile(path20, os.O_WRONLY|os.O_APPEND, 0666)
 
 	writer1 := csv.NewWriter(f1)
 	writer2 := csv.NewWriter(f2)
 	writer3 := csv.NewWriter(f3)
 	writer4 := csv.NewWriter(f4)
-	writer5 := csv.NewWriter(f5)
-	writer6 := csv.NewWriter(f6)
-	writer7 := csv.NewWriter(f7)
-	writer8 := csv.NewWriter(f8)
-	writer9 := csv.NewWriter(f9)
-	writer10 := csv.NewWriter(f10)
-	writer11 := csv.NewWriter(f11)
-	writer12 := csv.NewWriter(f12)
-	writer13 := csv.NewWriter(f13)
-	writer14 := csv.NewWriter(f14)
-	writer15 := csv.NewWriter(f15)
-	writer16 := csv.NewWriter(f16)
-	writer17 := csv.NewWriter(f17)
-	writer18 := csv.NewWriter(f18)
-	writer19 := csv.NewWriter(f19)
-	writer20 := csv.NewWriter(f20)
 
 	// writer1.Write(header)
 	// writer2.Write(header)
 	// writer3.Write(header)
 	// writer4.Write(header)
-	// writer5.Write(header)
-	// writer6.Write(header)
-	// writer7.Write(header)
-	// writer8.Write(header)
-	// writer9.Write(header)
-	// writer10.Write(header)
-	// writer11.Write(header)
-	// writer12.Write(header)
-	// writer13.Write(header)
-	// writer14.Write(header)
-	// writer15.Write(header)
-	// writer16.Write(header)
-	// writer17.Write(header)
-	// writer18.Write(header)
-	// writer19.Write(header)
-	// writer20.Write(header)
 
 	//打开流
 	clientsFile, _ := os.Open(uploadFilePath)
 	reader := csv.NewReader(clientsFile)
 	for {
-		var gerom string
 		line, err := reader.Read()
 		if err == io.EOF {
 			break
@@ -284,104 +205,46 @@ func SortCSV(c *gin.Context) {
 			fmt.Println("Error: ", err)
 			return
 		}
-		gerom = line[8]
-		if len(gerom) > 15 {
-			strs_arr := strings.Split(gerom, `;`)
-			str001 := "MULTIPOLYGON((("
-			for idx, strs := range strs_arr {
-				str := strings.Split(strs, `,`)
-				str001 = str001 + str[0] + " " + str[1]
-				if idx != 4 {
-					str001 += ","
-				}
-			}
-			str001 += ")))"
-			line[8] = str001
-			switch line[1] {
-			case "郑州市":
-				writer1.Write(line)
-				writer1.Flush()
-			case "上海市":
-				writer2.Write(line)
-				writer2.Flush()
-			case "深圳市":
-				writer3.Write(line)
-				writer3.Flush()
-			case "武汉市":
-				writer4.Write(line)
-				writer4.Flush()
-			case "北京市":
-				writer5.Write(line)
-				writer5.Flush()
-			case "重庆市":
-				writer6.Write(line)
-				writer6.Flush()
-			case "杭州市":
-				writer7.Write(line)
-				writer7.Flush()
-			case "天津市":
-				writer8.Write(line)
-				writer8.Flush()
-			case "合肥市":
-				writer9.Write(line)
-				writer9.Flush()
-			case "青岛市":
-				writer10.Write(line)
-				writer10.Flush()
-			case "成都市":
-				writer11.Write(line)
-				writer11.Flush()
-			case "长沙市":
-				writer12.Write(line)
-				writer12.Flush()
-			case "西安市":
-				writer13.Write(line)
-				writer13.Flush()
-			case "宁波市":
-				writer14.Write(line)
-				writer14.Flush()
-			case "苏州市":
-				writer15.Write(line)
-				writer15.Flush()
-			case "南京市":
-				writer16.Write(line)
-				writer16.Flush()
-			case "广州市":
-				writer17.Write(line)
-				writer17.Flush()
-			case "佛山市":
-				writer18.Write(line)
-				writer18.Flush()
-			case "东莞市":
-				writer19.Write(line)
-				writer19.Flush()
-			case "厦门市":
-				writer20.Write(line)
-				writer20.Flush()
-			}
+		str001 := "MULTIPOLYGON"
+		line[8] = str001
+		switch line[1] {
+		case "郑州市":
+			writer1.Write(line)
+			writer1.Flush()
+		case "上海市":
+			writer2.Write(line)
+			writer2.Flush()
+		case "深圳市":
+			writer3.Write(line)
+			writer3.Flush()
+		case "武汉市":
+			writer4.Write(line)
+			writer4.Flush()
 		}
 	}
 	common.ResSuccess(c, "Success")
 }
 
-func SortFeature(c *gin.Context) {
-	file, _ := c.FormFile("upload")
-	filename := file.Filename
-	_, err := os.Create("./docs/upload/")
-	filePath := "./docs/upload/" + fmt.Sprintf("%d", time.Now().Unix()) + filename
-	newFilePath := "./docs/upload/" + fmt.Sprintf("%d", time.Now().Unix()) + "new" + filename
-
+func (i File) SortFeature(c *gin.Context) {
+	var header = []string{"grid_id", "city", "pred_sale_area", "score", "grid_type",
+		"grid_size", "prediction_explain", "Business", "Shopping", "People", "Traffic", "Home"}
+	file, err := c.FormFile("upload")
+	if err != nil {
+		common.ResFalse(c, common.ErrParam)
+	}
+	os.MkdirAll("doc/temp", 0777)
+	filePath := "doc/temp" + fmt.Sprintf("%d", time.Now().Unix()) + file.Filename
+	newFilePath := "doc/temp" + fmt.Sprintf("%d", time.Now().Unix()) + "new" + file.Filename
 	err = c.SaveUploadedFile(file, filePath)
 	if err != nil {
+		common.ResFalse(c, common.ErrParam)
 	}
 	// 写入新文件
 	f, err := os.Create(newFilePath)
 	if err != nil {
-		fmt.Println("Error: ", err)
-		return
+		common.ResFalse(c, common.ErrParam)
 	}
 	writer := csv.NewWriter(f)
-	var header = []string{"grid_id", "city", "pred_sale_area", "score", "grid_type", "grid_size", "prediction_explain", "Business", "Shopping", "People", "Traffic", "Home"}
 	writer.Write(header)
 	writer.Flush()
 	//打开流
@@ -406,15 +269,20 @@ func SortFeature(c *gin.Context) {
 			var a Features02
 			b := features
 			// 办公
-			a.Business = b.FAvgFloor1k + b.FAvgFloors1k + b.FMaxFloor1k + b.FMaxFloors1k + b.FMinFloor1k + b.FMinFloors1k + b.FTotalFloor1k + b.FTotalFloors1k +
-				b.FAvgRent1k + b.FMaxRent1k + b.FMinRent1k + b.FCntOfficeBuilding1k + b.FPropertyTypes1k + b.FTotalSattledEnterprise1k + b.FBussinessLevel1k + b.FBussinessType1k
+			a.Business = b.FAvgFloor1k + b.FAvgFloors1k + b.FMaxFloor1k + b.FMaxFloors1k + b.FMinFloor1k +
+				b.FMinFloors1k + b.FTotalFloor1k + b.FTotalFloors1k + b.FAvgRent1k + b.FMaxRent1k +
+				b.FMinRent1k + b.FCntOfficeBuilding1k + b.FPropertyTypes1k + b.FTotalSattledEnterprise1k +
+				b.FBussinessLevel1k + b.FBussinessType1k
 			line[10] = fmt.Sprint(a.Business)
 			// 商业
-			a.Shopping = b.FAvgCommercialarea1k + b.FMaxCommercialarea1k + b.FMinCommercialarea1k + b.FTotalCommercialarea1k + b.FCity + b.FShopCnt1k
+			a.Shopping = b.FAvgCommercialarea1k + b.FMaxCommercialarea1k + b.FMinCommercialarea1k +
+				b.FTotalCommercialarea1k + b.FCity + b.FShopCnt1k
 			line[11] = fmt.Sprint(a.Shopping)
 			// 人口
-			a.People = b.FG400001_1k + b.FG400002_1k + b.FG400003_1k + b.FG400004_1k + b.FG400005_1k + b.FG400006_1k + b.FG400007_1k + b.FG400008_1k + b.FG400009_1k + b.FG400010_1k + b.FG400011_1k + b.FG400011_1k +
-				b.FRtoG400001_1k + b.FRtoG400002_1k + b.FRtoG400003_1k + b.FRtoG400004_1k + b.FRtoG400005_1k + b.FRtoG400006_1k + b.FRtoG400007_1k + b.FRtoG400008_1k + b.FRtoG400009_1k + b.FRtoG400010_1k + b.FRtoG400011_1k + b.FRtoG400012_1k +
+			a.People = b.FG400001_1k + b.FG400002_1k + b.FG400003_1k + b.FG400004_1k + b.FG400005_1k +
+				b.FG400006_1k + b.FG400007_1k + b.FG400008_1k + b.FG400009_1k + b.FG400010_1k + b.FG400011_1k + b.FG400011_1k +
+				b.FRtoG400001_1k + b.FRtoG400002_1k + b.FRtoG400003_1k + b.FRtoG400004_1k + b.FRtoG400005_1k +
+				b.FRtoG400006_1k + b.FRtoG400007_1k + b.FRtoG400008_1k + b.FRtoG400009_1k + b.FRtoG400010_1k + b.FRtoG400011_1k + b.FRtoG400012_1k +
 				b.FGFam1gHu1k + b.FGFam3gHu1k + b.FGFam2gHu1k + b.FGFam4gHu1k + b.FGFamHu1k + b.FRtoGFam1gHu1k + b.FRtoGFam2gHu1k + b.FRtogFam3gHu1k + b.FRtoGFam4gHu1k +
 				b.FGA100001_1k + b.FGA200001_1k + b.FGA200002_1k + b.FGA200003_1k + b.FGA200004_1k + b.FGA200005_1k + b.FGA200007_1k +
 				b.FGA200008_1k + b.FGA200009_1k + b.FGA200010_1k + b.FGA200011_1k + b.FGA200012_1k + b.FGA200013_1k + b.FGA200014_1k +

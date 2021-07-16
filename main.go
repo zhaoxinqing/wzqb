@@ -8,15 +8,11 @@ import (
 )
 
 func main() {
-	// 加载数据库
 	var c model.Conf
 	conf := c.GetConf()
 	InitDB(conf)
-	// 路由注册
 	router := gin.New()
-	v1 := router.Group("/v1")
-	app.RegisterV1(v1)
-	app.RegisterV2(v1)
+	app.RegisterRouting(router.Group("/v1"))
 	router.Run(":8990")
 }
 

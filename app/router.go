@@ -1,28 +1,26 @@
 package app
 
 import (
-	"Kilroy/app/controller"
+	"Kilroy/app/ctrl"
 
 	"github.com/gin-gonic/gin"
 )
 
 // RegisterRouterSys ...
-func RegisterV1(v1 *gin.RouterGroup) {
+func RegisterRouting(app *gin.RouterGroup) {
 	// 个人中心
-	v1.GET("/someGet", controller.TestGet)       // 获取
-	v1.POST("/somePost", controller.TestPost)    // 创建
-	v1.PUT("/somePut", controller.TestPut)       // 更新
-	v1.DELETE("/someDelete", controller.TestPut) // 删除
+	demo := ctrl.Demo{}
+	app.GET("/someGet", demo.TestGet)                    // 获取
+	app.POST("/somePost", demo.TestPost)                 // 创建
+	app.PUT("/somePut", demo.TestPut)                    // 更新
+	app.DELETE("/someDelete", demo.TestPut)              // 删除
+	app.POST("/test/upload/table", demo.UploadTable)     //
+	app.POST("/test/upload/html_to_pdf", demo.HtmlToPDF) //
 
-	v1.POST("/api/test/upload/table", controller.UploadTable)
-	v1.POST("/api/test/upload/html_to_pdf", controller.HtmlToPDF)
-}
-
-// RegisterRouterSys ...
-func RegisterV2(v2 *gin.RouterGroup) {
-	v2.POST("/upload", controller.UploadFile)          // 文件上传
-	v2.POST("/upload/csv", controller.UploadCSV)       // 文件上传
-	v2.POST("/upload/sort", controller.SortCSV)        // 分类上传
-	v2.POST("/upload/feature", controller.SortFeature) //
-	v2.POST("/upload/doc", controller.FindSH)          //
+	file := ctrl.File{}
+	app.POST("/upload", file.UploadFile)          // 文件上传
+	app.POST("/upload/csv", file.UploadCSV)       // 文件上传
+	app.POST("/upload/sort", file.SortCSV)        // 分类上传
+	app.POST("/upload/feature", file.SortFeature) //
+	app.POST("/upload/doc", file.FindSH)          //
 }

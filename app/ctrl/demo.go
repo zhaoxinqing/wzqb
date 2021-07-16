@@ -1,4 +1,4 @@
-package controller
+package ctrl
 
 import (
 	"Kilroy/app/auth"
@@ -12,8 +12,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type Demo struct{}
+
 // 获取
-func TestGet(c *gin.Context) {
+func (i Demo) TestGet(c *gin.Context) {
 	id := c.Query("id")
 	common.ResSuccess(c, id)
 	// common.ResSuccess(c, nil)
@@ -21,7 +23,7 @@ func TestGet(c *gin.Context) {
 }
 
 // 创建
-func TestPost(c *gin.Context) {
+func (i Demo) TestPost(c *gin.Context) {
 	var a auth.A
 	// 入参解析校验
 	err := c.BindJSON(&a)
@@ -39,12 +41,12 @@ func TestPost(c *gin.Context) {
 }
 
 // 更新
-func TestPut(c *gin.Context) {
+func (i Demo) TestPut(c *gin.Context) {
 	common.ResSuccess(c, "ok")
 }
 
 // 删除
-func UploadTable(c *gin.Context) {
+func (i Demo) UploadTable(c *gin.Context) {
 	file, err := c.FormFile("table")
 	if err != nil {
 		common.ResFalse(c, err.Error()+"（获取上传文件失败）")
@@ -70,7 +72,7 @@ func UploadTable(c *gin.Context) {
 }
 
 // 删除
-func HtmlToPDF(c *gin.Context) {
+func (i Demo) HtmlToPDF(c *gin.Context) {
 	file, err := c.FormFile("html")
 	if err != nil {
 		common.ResFalse(c, err.Error()+"（获取上传文件失败）")
@@ -101,7 +103,7 @@ type PostParam struct {
 	Operation string // 操作
 }
 
-func GetTestPostParam(c *gin.Context) (param PostParam, msg string) {
+func (i Demo) GetTestPostParam(c *gin.Context) (param PostParam, msg string) {
 	err := c.Bind(&param)
 	if err != nil {
 		msg = "参数解析出错"

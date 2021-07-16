@@ -52,4 +52,16 @@ func GetString() {
 	strArr03 := strings.Split(strHaiCoder, "Hello")
 	fmt.Println("strArr =", strArr03)
 
+	// string to int64
+	var u = "1230"
+	ua, err := strconv.ParseInt(u, 10, 64)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(ua)
+
+	//string to int
+	var strScore = "99"
+	score, err := strconv.Atoi(strScore)
+	fmt.Println(score)
 }

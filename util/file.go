@@ -71,36 +71,13 @@ var (
 	fileInfo os.FileInfo
 )
 
-// 得到文件信息
-func GetFileInfo() {
-	// 如果文件不存在，则返回错误
-	fileInfo, err = os.Stat("test.txt")
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println("File name:", fileInfo.Name())
-	fmt.Println("Size in bytes:", fileInfo.Size())
-	fmt.Println("Permissions:", fileInfo.Mode())
-	fmt.Println("Last modified:", fileInfo.ModTime())
-	fmt.Println("Is Directory: ", fileInfo.IsDir())
-	fmt.Printf("System interface type: %T\n", fileInfo.Sys())
-	fmt.Printf("System info: %+v\n\n", fileInfo.Sys())
-}
-
-// 重命名和移动
-// rename 和 move 原理一样
-func RenameAndMoveFile() {
+func OsOperation() {
 	originalPath := "test.txt"
 	newPath := "test2.txt"
-	err := os.Rename(originalPath, newPath)
-	if err != nil {
-		fmt.Println(err)
-	}
-}
-
-// 删除文件
-func DeleteFile() {
-	err := os.Remove("test.txt")
+	_ = os.Remove("test.txt")
+	_ = os.Rename(originalPath, newPath)
+	// 如果文件不存在，则返回错误
+	fileInfo, err = os.Stat("test.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -651,23 +628,22 @@ func OtherFileOperation() {
 }
 
 // 通过HTTP下载文件
-func HTTPDownloadFile() {
-	newFile, err := os.Create("devdungeon.html")
+func HTTPDownloadFile(url string) (filePath string, err error) {
+	filePath = "/doc/temp/demo.html"
+	newFile, err := os.Create(filePath)
 	if err != nil {
-		fmt.Println(err)
+		return
 	}
 	defer newFile.Close()
-	url := "http://www.devdungeon.com/archive"
 	response, err := http.Get(url)
 	if err != nil {
-		fmt.Println(err)
+		return
 	}
 	defer response.Body.Close()
-	// 将HTTP response Body中的内容写入到文件
-	// Body满足reader接口，因此我们可以使用ioutil.Copy
 	numBytesWritten, err := io.Copy(newFile, response.Body)
 	if err != nil {
-		fmt.Println(err)
+		return
 	}
-	log.Printf("Downloaded %d byte file.\n", numBytesWritten)
+	fmt.Println(numBytesWritten)
+	return
 }

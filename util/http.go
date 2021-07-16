@@ -16,30 +16,22 @@ type ResultParam struct {
 }
 
 func GetHttpServe(method string, requestURL string, token string, param interface{}) (result ResultParam, err error) {
-	var (
-		client = &http.Client{}
-	)
-	//
+	client := &http.Client{}
 	info, err := json.Marshal(param)
 	if err != nil {
 		return
 	}
-	//
 	request, err := http.NewRequest(method, requestURL, strings.NewReader(string(info)))
 	if err != nil {
 		return
 	}
-	// add Headers ...
 	request.Header.Set("Content-Type", "application/json")
 	request.Header.Set("Authorization", token)
-	//
 	response, err := client.Do(request)
 	if err != nil {
 		return
 	}
 	defer response.Body.Close()
-
-	// get responseBody
 	responseBody, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return
