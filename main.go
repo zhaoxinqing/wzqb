@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	var c Conf
+	var c ConfigFile
 	conf := c.GetConf()
 	InitDB(conf)
 	router := gin.New()
@@ -21,7 +21,7 @@ func main() {
 	router.Run(":8990")
 }
 
-func InitDB(config *Conf) {
+func InitDB(config *ConfigFile) {
 	InitDBa(config) // 初始化数据库
 	Migration()     // 数据库表迁移（自创建数据库）
 }
@@ -30,7 +30,7 @@ func InitDB(config *Conf) {
 var DB *gorm.DB
 
 //profile variables
-type Conf struct {
+type ConfigFile struct {
 	Database Postgres `yaml:"postgres"`
 	Redis    Redis    `yaml:"redis"`
 }
@@ -48,7 +48,7 @@ type Redis struct {
 	Driver   string `yaml:"driver"`
 }
 
-func (c *Conf) GetConf() *Conf {
+func (c *ConfigFile) GetConf() *ConfigFile {
 	yamlFile, err := ioutil.ReadFile("conf.yaml")
 	if err != nil {
 		fmt.Println(err.Error())
@@ -61,7 +61,7 @@ func (c *Conf) GetConf() *Conf {
 }
 
 // InitDB 初始化数据库配置
-func InitDBa(config *Conf) {
+func InitDBa(config *ConfigFile) {
 	dsn := "host=localhost user=postgres password=gorm dbname=kilroy port=9900 sslmode=disable TimeZone=Asia/Shanghai"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {

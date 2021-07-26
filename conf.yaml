@@ -1,6 +1,11 @@
 postgres: 
   host: localhost
   port: 9900
-  user: 
-  password: 
+  user: Boston
+  password: 12ERT459
   name: 
+redis:
+  host: watermelon
+  port: 1234
+  user: Boston
+  password: 12ERT459
