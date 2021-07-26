@@ -40,9 +40,21 @@ func (i Demo) TestPost(c *gin.Context) {
 	common.ResSuccess(c, b)
 }
 
+type UploadMessage struct {
+	Message string `json:"message"`
+}
+
 // 更新
 func (i Demo) TestPut(c *gin.Context) {
-	common.ResSuccess(c, "ok")
+	var (
+		records     []string
+		successList = []interface{}{}
+		errorMap    = make(map[string]string)
+	)
+	message := UploadMessage{
+		Message: fmt.Sprintf("共 %d 条数据，成功添加 %d 条，错误 %d 条", len(records)-2, len(successList), len(errorMap)),
+	}
+	common.ResSuccess(c, message)
 }
 
 // 删除
