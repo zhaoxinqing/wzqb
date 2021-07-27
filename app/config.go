@@ -1,26 +1,32 @@
-package ctrl
+package app
 
 import (
-	"Kilroy/app/common"
+	"Kilroy/app/model"
+	"fmt"
 	"io/ioutil"
 	"log"
 
-	"github.com/gin-gonic/gin"
 	"gopkg.in/yaml.v2"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-type Test struct{}
-
+// yaml配置文件
 type Yaml struct {
 	Database Postgres `yaml:"postgres"`
 	Redis    Redis    `yaml:"redis"`
 }
+
+// 数据库
 type Postgres struct {
 	Host     string `yaml:"host"`
 	Port     string `yaml:"port"`
 	User     string `yaml:"user"`
 	Password string `yaml:"password"`
+	DBName   string `yaml:"dbname"`
 }
+
+// 缓存库
 type Redis struct {
 	Host     string `yaml:"host"`
 	Port     string `yaml:"port"`
@@ -28,8 +34,8 @@ type Redis struct {
 	Password string `yaml:"password"`
 }
 
-// 获取
-func (i Test) Yaml(c *gin.Context) {
+// 初始化数据库
+func InitDB() {
 	conf := new(Yaml)
 	yamlFile, err := ioutil.ReadFile("conf.yaml")
 	if err != nil {
@@ -39,6 +45,16 @@ func (i Test) Yaml(c *gin.Context) {
 	if err != nil {
 		log.Fatalf("Unmarshal: %v", err)
 	}
-	log.Println("conf", conf)
-	common.ResSuccess(c, nil)
+	dsn := fmt.Sprintf("host=%v port=%v dbname=%v user=postgres password=gorm sslmode=disable TimeZone=Asia/Shanghai",
+		conf.Database.Host, conf.Database.Port, conf.Database.DBName)
+	// log.Printf("dsn: %v ", dsn)
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic(err)
+	}
+	err = db.AutoMigrate(new(model.Users))
+	err = db.AutoMigrate(new(model.UserInfo))
+	if err != nil {
+		fmt.Println(err)
+	}
 }

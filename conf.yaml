@@ -1,9 +1,9 @@
 postgres: 
   host: localhost
   port: 9900
-  user: Boston
+  user: postgres
   password: 12ERT459
-  name: 
+  dbname: kilroy
 redis:
   host: watermelon
   port: 1234

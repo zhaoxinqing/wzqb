@@ -1,7 +1,7 @@
 package app
 
 import (
-	"Kilroy/app/ctrl"
+	ctrl "Kilroy/app/controller"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,9 +17,7 @@ func RegisterRouting(app *gin.RouterGroup) {
 	app.POST("/test/upload/table", demo.UploadTable)     //
 	app.POST("/test/upload/html_to_pdf", demo.HtmlToPDF) //
 
-	test := ctrl.Test{}
-	app.GET("/test/yaml", test.Yaml)
-
+	// 文件
 	file := ctrl.File{}
 	app.POST("/upload", file.UploadFile)          // 文件上传
 	app.POST("/upload/csv", file.UploadCSV)       // 文件上传

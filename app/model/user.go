@@ -10,6 +10,7 @@ type Users struct {
 	Phone     string    `gorm:"phone" json:"phone"`           // 用户手机号
 	CreatedAt time.Time `gorm:"created_at" json:"created_at"` // 创建时间
 	UpdatedAt time.Time `gorm:"updated_at" json:"updated_at"` // 更新时间
+	Beat      string    `gorm:"beat" json:"-"`
 }
 
 // TableName 表名
