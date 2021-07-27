@@ -57,4 +57,5 @@ func InitDB() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	model.DB = db
 }

@@ -8,10 +8,7 @@ const (
 	SignTypeChange                     //变更
 )
 
-func (s Contract) SignTypeName() string {
-	var (
-		name string
-	)
+func (s Contract) SignTypeName() (name string) {
 	switch s {
 	case SignTypeNew:
 		name = "新签"
@@ -22,7 +19,7 @@ func (s Contract) SignTypeName() string {
 	default:
 		name = "未知"
 	}
-	return name
+	return
 }
 
 const (

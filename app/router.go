@@ -17,6 +17,8 @@ func RegisterRouting(app *gin.RouterGroup) {
 	app.POST("/test/upload/table", demo.UploadTable)     //
 	app.POST("/test/upload/html_to_pdf", demo.HtmlToPDF) //
 
+	db := ctrl.TestDB{}
+	app.POST("/test_db/add", db.Add)
 	// 文件
 	file := ctrl.File{}
 	app.POST("/upload", file.UploadFile)          // 文件上传
