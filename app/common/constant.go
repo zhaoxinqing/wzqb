@@ -9,4 +9,5 @@ var (
 	ErrParam         = "传入参数有误_"
 	ErrAccountSystem = "账户系统响应失败"
 	ErrFormat        = "格式不正确"
+	ErrDB            = "数据库操作失败"
 )

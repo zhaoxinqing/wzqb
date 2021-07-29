@@ -7,7 +7,7 @@ import (
 )
 
 // RegisterRouterSys ...
-func RegisterRouting(app *gin.RouterGroup) {
+func Register(app *gin.RouterGroup) {
 	// 个人中心
 	demo := ctrl.Demo{}
 	app.GET("/someGet", demo.TestGet)                    // 获取
@@ -19,6 +19,8 @@ func RegisterRouting(app *gin.RouterGroup) {
 
 	db := ctrl.TestDB{}
 	app.POST("/test_db/add", db.Add)
+	app.PUT("/test_db/update", db.Update)
+	app.DELETE("/test_db/delete")
 	// 文件
 	file := ctrl.File{}
 	app.POST("/upload", file.UploadFile)          // 文件上传

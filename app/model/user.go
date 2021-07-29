@@ -1,19 +1,21 @@
 package model
 
-import "time"
+import (
+	"Kilroy/lib"
+)
 
 // Users 后台用户
-type Users struct {
-	ID        int64     `gorm:"id" json:"id"`                 // ID（主键）
-	Status    int64     `gorm:"status" json:"status"`         // 用户状态（1:正常 2:未激活 3:暂停使用）
-	Name      string    `gorm:"name" json:"name"`             // 用户名
-	Phone     string    `gorm:"phone" json:"phone"`           // 用户手机号
-	CreatedAt time.Time `gorm:"created_at" json:"created_at"` // 创建时间
-	UpdatedAt time.Time `gorm:"updated_at" json:"updated_at"` // 更新时间
-	Beat      string    `gorm:"beat" json:"-"`
+type User struct {
+	ID        int64    `gorm:"id" json:"id"`         //
+	Name      string   `gorm:"name" json:"name"`     // 姓名
+	Age       int64    `gorm:"age" json:"age"`       // 年龄
+	Sex       int64    `gorm:"sex" json:"sex"`       // 性别：0女、1男、2未知
+	Remark    string   `gorm:"remark" json:"remark"` // 备注
+	CreatedAt lib.Time `gorm:"created_at" json:"-"`  //
+	UpdatedAt lib.Time `gorm:"updated_at" json:"-"`  //
 }
 
 // TableName 表名
-func (Users) TableName() string {
+func (User) TableName() string {
 	return "user"
 }

@@ -30,7 +30,6 @@ func DocFeature(c *gin.Context) {
 	// _, err := os.Create("./docs/upload/")
 	filePath := "./docs/upload/" + fmt.Sprintf("%d", time.Now().Unix()) + filename
 	newFilePath := "./docs/upload/" + "new" + fmt.Sprintf("%d", time.Now().Unix()) + filename
-
 	err := c.SaveUploadedFile(file, filePath)
 	if err != nil {
 	}
@@ -70,7 +69,6 @@ func DocFeature(c *gin.Context) {
 			}
 			str001 += ")))"
 			line[8] = str001
-
 			// writer.Write(line)
 			// writer.Flush()
 			// 将缓存中的内容写入到文件里
@@ -88,19 +86,16 @@ func DocFeature(c *gin.Context) {
 			for _, list := range lists {
 				mod[list.Label] = list.Value
 			}
-
 			// 办公
 			business := mod["f_avg_floor"] + mod["f_avg_floors"] + mod["f_max_floor"] + mod["f_max_floors"] + mod["f_min_floor"] +
 				mod["f_min_floors"] + mod["f_total_floor"] + mod["f_total_floors"] + mod["f_avg_rent"] + mod["f_max_rent"] +
 				mod["f_min_rent"] + mod["f_cnt_office_building"] + mod["f_property_types"] + mod["f_total_sattled_enterprise"] +
 				mod["f_bussiness_level"] + mod["f_bussiness_type"]
 			line = append(line, fmt.Sprint(business))
-
 			// 	// 商业
 			shopping := mod["f_avg_commercialarea"] + mod["f_max_commercialarea"] + mod["f_min_commercialarea"] + mod["f_total_commercialarea"] +
 				mod["f_city"] + mod["f_shop_cnt"]
 			line = append(line, fmt.Sprint(shopping))
-
 			// 人口
 			people := mod["f_g_400001"] + mod["f_g_400002"] + mod["f_g_400003"] + mod["f_g_400004"] + mod["f_g_400005"] + mod["f_g_400006"] +
 				mod["f_g_400007"] + mod["f_g_400008"] + mod["f_g_400009"] + mod["f_g_400010"] + mod["f_g_400011"] + mod["f_g_400012"] +
@@ -124,11 +119,9 @@ func DocFeature(c *gin.Context) {
 				mod["f_rto_g_a200031"] + mod["f_rto_g_a200032"] +
 				mod["f_rto_g_a200033"] + mod["f_rto_g_a200034"] + mod["f_rto_g_a200035"] + mod["f_rto_g_a200036"] + mod["f_rto_g_a200037"] + mod["f_rto_g_a200038"]
 			line = append(line, fmt.Sprint(people))
-
 			// 交通
 			traffic := mod["f_cnt_subway"] + mod["f_cnt_bus"]
 			line = append(line, fmt.Sprint(traffic))
-
 			// 住宅be
 			home := mod["f_avg_price"] + mod["f_avg_afforest_rate"] + mod["f_avg_plot_ratio"] + mod["f_max_plot_ratio"] +
 				mod["f_min_plot_ratio"] + mod["f_avg_property_price"] + mod["f_max_property_price"] + mod["f_min_property_price"] +
