@@ -2,9 +2,8 @@
 .idea/
 
 # ignore .vscode folder
-/.vscode/
+/.vscode
 
-doc/
 
 __debug_bin
 

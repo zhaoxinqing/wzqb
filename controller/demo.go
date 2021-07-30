@@ -1,9 +1,9 @@
-package ctrl
+package controller
 
 import (
 	"Kilroy/app/auth"
-	"Kilroy/app/common"
 	"Kilroy/app/logic"
+	"Kilroy/common"
 	"Kilroy/util"
 	"fmt"
 	"os"

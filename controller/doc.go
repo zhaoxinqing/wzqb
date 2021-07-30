@@ -1,7 +1,7 @@
-package ctrl
+package controller
 
 import (
-	"Kilroy/app/common"
+	"Kilroy/common"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"

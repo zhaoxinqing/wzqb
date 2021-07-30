@@ -1,8 +1,8 @@
-package ctrl
+package controller
 
 import (
-	"Kilroy/app/common"
 	"Kilroy/app/model"
+	"Kilroy/common"
 
 	"github.com/gin-gonic/gin"
 )
