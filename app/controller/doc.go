@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"Kilroy/common"
+	"Kilroy/app/common"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"

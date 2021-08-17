@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"Kilroy/common"
+	"Kilroy/app/common"
 	"Kilroy/config"
-	"Kilroy/lib"
+	"Kilroy/util"
 	"context"
 	"strings"
 	"time"
@@ -19,7 +19,7 @@ func UserAuthMiddleware(skipper ...SkipperFunc) gin.HandlerFunc {
 			c.Next()
 			return
 		}
-		if token := lib.GetHeaderToken(c); token != "" {
+		if token := util.GetHeaderToken(c); token != "" {
 			t := strings.ReplaceAll(token, "Bearer ", "")
 			isPass, _ := GetTokenFromRedis(t)
 			if !isPass {

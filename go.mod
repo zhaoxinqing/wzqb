@@ -10,6 +10,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.1
 	github.com/gogf/gf v1.16.4
 	github.com/google/uuid v1.3.0
+	github.com/robfig/cron/v3 v3.0.1 // indirect
 	golang.org/x/text v0.3.6
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/yaml.v2 v2.3.0
