@@ -30,4 +30,6 @@ func Register(app *gin.RouterGroup) {
 	app.POST("/upload/sort", file.SortCSV)        // 分类上传
 	app.POST("/upload/feature", file.SortFeature) //
 	app.POST("/upload/doc", file.FindSH)          //
+
+	app.GET("/test", controller.TestJson)
 }
