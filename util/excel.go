@@ -5,9 +5,7 @@ import (
 	"errors"
 	"io"
 	"os"
-	"strconv"
 	"strings"
-	"time"
 
 	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	"golang.org/x/text/encoding/simplifiedchinese"
@@ -78,27 +76,27 @@ func ReadFileToRecords(fileType, savePath string, limit int) (records [][]string
 		if len(sheetName) > 0 {
 			rows, _ := recordFile.Rows(sheetName)
 			var (
-				rowIndex       = 1
-				format         string
-				found          bool
-				styleNumFmtMap = make(map[int]string)
+				rowIndex = 1
+				// format         string
+				// found          bool
+				// styleNumFmtMap = make(map[int]string)
 			)
 			for rows != nil && rows.Next() {
 				record, _ := rows.Columns()
 				for i := range record {
-					cellName, _ := excelize.CoordinatesToCellName(i+1, rowIndex)
-					styleID, _ := recordFile.GetCellStyle(sheetName, cellName)
-					if styleID > 0 {
-						if format, found = styleNumFmtMap[styleID]; !found {
-							format = getFormatByStyleID(styleID, recordFile)
-							if len(format) > 0 {
-								styleNumFmtMap[styleID] = format
-							}
-						}
-						if len(format) > 0 {
-							record[i] = formatCellValue(record[i], format)
-						}
-					}
+					// cellName, _ := excelize.CoordinatesToCellName(i+1, rowIndex)
+					// styleID, _ := recordFile.GetCellStyle(sheetName, cellName)
+					// if styleID > 0 {
+					// 	if format, found = styleNumFmtMap[styleID]; !found {
+					// 		format = getFormatByStyleID(styleID, recordFile)
+					// 		if len(format) > 0 {
+					// 			styleNumFmtMap[styleID] = format
+					// 		}
+					// 	}
+					// 	if len(format) > 0 {
+					// 		record[i] = formatCellValue(record[i], format)
+					// 	}
+					// }
 					record[i] = strings.TrimSpace(record[i])
 				}
 				records = append(records, record)
@@ -114,59 +112,60 @@ func ReadFileToRecords(fileType, savePath string, limit int) (records [][]string
 	}
 	return
 }
-func getFormatByStyleID(styleID int, file *excelize.File) (format string) {
-	numFmtID := *file.Styles.CellXfs.Xf[styleID].NumFmtID
-	if numFmtID == 14 {
-		format = "mm-dd-yy"
-		return
-	}
-	if file.Styles == nil || file.Styles.NumFmts == nil {
-		return
-	}
-	for _, xlsxFmt := range file.Styles.NumFmts.NumFmt {
-		if xlsxFmt.NumFmtID == numFmtID {
-			format = strings.ToLower(xlsxFmt.FormatCode)
-			return
-		}
-	}
-	return
-}
 
-var excelEpoch = time.Date(1899, time.December, 30, 0, 0, 0, 0, time.UTC)
+// func getFormatByStyleID(styleID int, file *excelize.File) (format string) {
+// 	numFmtID := *file.Styles.CellXfs.Xf[styleID].NumFmtID
+// 	if numFmtID == 14 {
+// 		format = "mm-dd-yy"
+// 		return
+// 	}
+// 	if file.Styles == nil || file.Styles.NumFmts == nil {
+// 		return
+// 	}
+// 	for _, xlsxFmt := range file.Styles.NumFmts.NumFmt {
+// 		if xlsxFmt.NumFmtID == numFmtID {
+// 			format = strings.ToLower(xlsxFmt.FormatCode)
+// 			return
+// 		}
+// 	}
+// 	return
+// }
 
-func formatCellValue(value string, format string) string {
-	if len(format) == 0 {
-		return value
-	}
-	if isDateFormat(format) {
-		// 根据格式转换日期内容
-		if days, err := strconv.Atoi(value); err == nil {
-			// 数字转日期
-			theDate := excelEpoch.Add(time.Hour * time.Duration(days*24))
-			value = theDate.Format(`2006-01-02`)
-		} else {
-			// mm-dd-yy 格式
-			var formatLayout = strings.ReplaceAll(format, "mm", "01")
-			formatLayout = strings.ReplaceAll(formatLayout, "dd", "02")
-			if strings.Contains(formatLayout, "yyyy") {
-				formatLayout = strings.ReplaceAll(formatLayout, "yyyy", "2006")
-			} else {
-				formatLayout = strings.ReplaceAll(formatLayout, "yy", "06")
-			}
-			if recordTime, err := time.Parse(formatLayout, value); err == nil {
-				value = recordTime.Format(`2006-01-02`)
-			}
-		}
-	}
-	return value
-}
-func isDateFormat(format string) bool {
-	if strings.Contains(format, "yy") || strings.Contains(format, "mm") ||
-		strings.Contains(format, "dd") {
-		return true
-	}
-	return false
-}
+// var excelEpoch = time.Date(1899, time.December, 30, 0, 0, 0, 0, time.UTC)
+
+// func formatCellValue(value string, format string) string {
+// 	if len(format) == 0 {
+// 		return value
+// 	}
+// 	if isDateFormat(format) {
+// 		// 根据格式转换日期内容
+// 		if days, err := strconv.Atoi(value); err == nil {
+// 			// 数字转日期
+// 			theDate := excelEpoch.Add(time.Hour * time.Duration(days*24))
+// 			value = theDate.Format(`2006-01-02`)
+// 		} else {
+// 			// mm-dd-yy 格式
+// 			var formatLayout = strings.ReplaceAll(format, "mm", "01")
+// 			formatLayout = strings.ReplaceAll(formatLayout, "dd", "02")
+// 			if strings.Contains(formatLayout, "yyyy") {
+// 				formatLayout = strings.ReplaceAll(formatLayout, "yyyy", "2006")
+// 			} else {
+// 				formatLayout = strings.ReplaceAll(formatLayout, "yy", "06")
+// 			}
+// 			if recordTime, err := time.Parse(formatLayout, value); err == nil {
+// 				value = recordTime.Format(`2006-01-02`)
+// 			}
+// 		}
+// 	}
+// 	return value
+// }
+// func isDateFormat(format string) bool {
+// 	if strings.Contains(format, "yy") || strings.Contains(format, "mm") ||
+// 		strings.Contains(format, "dd") {
+// 		return true
+// 	}
+// 	return false
+// }
 
 func ReadExcel(filePath string) (result interface{}, err error) {
 	clientsFile, err := os.Open(filePath)
