@@ -8,9 +8,11 @@ import (
 )
 
 func main() {
-	router := gin.New()
+	// 加载配置文件
 	config.InitDB()
-	// service.TimeToNotification() // 定时任务
-	app.Register(router.Group("api"))
+
+	// 注册路由
+	router := gin.New()
+	app.Register(router.Group("moonlight"))
 	router.Run(":8990")
 }

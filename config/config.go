@@ -13,9 +13,7 @@ import (
 	"gorm.io/gorm"
 )
 
-const (
-	ConfigPath = "config/conf.yaml"
-)
+const ConfigPath = "config/conf.yaml"
 
 // yaml配置文件
 type Yaml struct {
@@ -62,6 +60,7 @@ func InitDB() {
 	if err != nil {
 		panic("数据库：配置连接失败")
 	}
+	db.Debug()
 	autoMigrate(db)
 	model.DB = db
 }
