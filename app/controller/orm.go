@@ -14,6 +14,7 @@ type UserController struct{}
 func (i UserController) CreateUser(c *gin.Context) {
 	var (
 		info = model.User{}
+		aa   = model.User{}
 		err  error
 	)
 	// 获取入参及赋值
@@ -22,7 +23,9 @@ func (i UserController) CreateUser(c *gin.Context) {
 		return
 	}
 	//
-	if err = model.Create(&info); err != nil {
+	err = model.DB.Where("id = 6").Find(&aa).Error
+	aa.ID = 0
+	if err = model.Create(&aa); err != nil {
 		common.ResFalse(c, err.Error())
 		return
 	}
@@ -44,7 +47,7 @@ func (i UserController) GetUsers(c *gin.Context) {
 	common.ResSuccess(c, info)
 }
 
-// 添加
+// 更新
 func (i UserController) UpdateUser(c *gin.Context) {
 	var (
 		info = model.User{}
@@ -101,6 +104,8 @@ func (i UserController) GetByTime(c *gin.Context) {
 	// 入参校验
 	time1, _ := c.GetQuery("time1") // 2021-08-20
 	time2, _ := c.GetQuery("time2") // 2021-08-28
+
+	// time.Sleep(1 * time.Second)
 
 	err = db.Debug().Model(&model.User{}).Where("updated_at between ? and ? ", time1, time2).
 		Find(&infos).Error
