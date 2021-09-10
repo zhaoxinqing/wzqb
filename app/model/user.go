@@ -1,6 +1,6 @@
 package model
 
-import "Kilroy/util"
+import "Moonlight/util"
 
 // Users 后台用户
 type User struct {

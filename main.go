@@ -1,8 +1,8 @@
 package main
 
 import (
-	"Kilroy/app"
-	"Kilroy/config"
+	"Moonlight/app"
+	"Moonlight/config"
 
 	"github.com/gin-gonic/gin"
 )

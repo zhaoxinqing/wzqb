@@ -38,10 +38,10 @@ func (m *LogAddMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 type Business_log struct {
 	ID           string    `gorm:"primary_key;column:id;type:VARCHAR;" json:"id"`
 	Name         string    `gorm:"column:name;type:VARCHAR;" json:"name"`
+	IP           string    `gorm:"column:ip;type:VARCHAR;" json:"ip"`
 	RequestURL   string    `gorm:"column:request_url;type:VARCHAR;" json:"requestUrl"`
 	RequestType  string    `gorm:"column:request_type;type:VARCHAR;" json:"requestType"`
 	RequestParam string    `gorm:"column:request_param;type:VARCHAR;" json:"requestParam"`
-	IP           string    `gorm:"column:ip;type:VARCHAR;" json:"ip"`
 	CreateTime   time.Time `gorm:"column:create_time;type:TIMESTAMP;" json:"createTime"`
 	UpdateTime   time.Time `gorm:"column:update_time;type:TIMESTAMP;" json:"updateTime"`
 }

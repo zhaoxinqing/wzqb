@@ -1,7 +1,7 @@
 package config
 
 import (
-	"Kilroy/app/model"
+	"Moonlight/app/model"
 	"fmt"
 
 	"github.com/go-redis/redis"

@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"Kilroy/app/common"
-	"Kilroy/app/model"
+	"Moonlight/app/common"
+	"Moonlight/app/model"
 	"strconv"
 
 	"github.com/gin-gonic/gin"

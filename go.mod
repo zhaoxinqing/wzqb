@@ -1,4 +1,4 @@
-module Kilroy
+module Moonlight
 
 go 1.15
 
