@@ -1,7 +1,7 @@
 package util
 
-// IsContain ...
-func IsContain(items []int64, item int64) bool {
+// IsContainInt64 ...
+func IsContainInt64(items []int64, item int64) bool {
 	for _, eachItem := range items {
 		if eachItem == item {
 			return true
@@ -10,8 +10,8 @@ func IsContain(items []int64, item int64) bool {
 	return false
 }
 
-// IsContainStr ...
-func IsContainStr(items []string, item string) bool {
+// IsContainString ...
+func IsContainString(items []string, item string) bool {
 	for _, eachItem := range items {
 		if eachItem == item {
 			return true
@@ -20,15 +20,15 @@ func IsContainStr(items []string, item string) bool {
 	return false
 }
 
-// RemoveDuplicate int64数组去重
-func RemoveDuplicate(arr []int64) []int64 {
-	result := make([]int64, 0, len(arr))
+// RemoveDupInt64 ...
+func RemoveDupInt64(items []int64) []int64 {
+	result := make([]int64, 0, len(items))
 	tempMap := map[int64]byte{}
-	for _, e := range arr {
+	for _, eachItem := range items {
 		l := len(tempMap)
-		tempMap[e] = 0
+		tempMap[eachItem] = 0
 		if len(tempMap) != l {
-			result = append(result, e)
+			result = append(result, eachItem)
 		}
 	}
 	return result

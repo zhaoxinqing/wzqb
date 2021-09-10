@@ -8,13 +8,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UserController struct{}
-
 // CreateUser 添加
-func (i UserController) CreateUser(c *gin.Context) {
+func (*OrmTest) CreateUser(c *gin.Context) {
 	var (
 		info = model.User{}
-		aa   = model.User{}
 		err  error
 	)
 	// 获取入参及赋值
@@ -23,9 +20,8 @@ func (i UserController) CreateUser(c *gin.Context) {
 		return
 	}
 	//
-	err = model.DB.Where("id = 6").Find(&aa).Error
-	aa.ID = 0
-	if err = model.Create(&aa); err != nil {
+	err = model.DB.Where("id = 6").UpdateColumn("id", 7).Error
+	if err != nil {
 		common.ResFalse(c, err.Error())
 		return
 	}
@@ -33,7 +29,7 @@ func (i UserController) CreateUser(c *gin.Context) {
 }
 
 // GetUsers 获取
-func (i UserController) GetUsers(c *gin.Context) {
+func (*OrmTest) GetUsers(c *gin.Context) {
 	info := model.User{}
 	// 入参校验
 	err := c.BindJSON(&info)
@@ -48,17 +44,17 @@ func (i UserController) GetUsers(c *gin.Context) {
 }
 
 // 更新
-func (i UserController) UpdateUser(c *gin.Context) {
+func (*OrmTest) UpdateUser(c *gin.Context) {
 	var (
 		info = model.User{}
 		err  error
 	)
-	// 入参校验
 	if err = c.BindJSON(&info); err != nil {
 		common.ResFalse(c, common.ErrParam)
 		return
 	}
-	if err = model.Save(&info); err != nil {
+	err = model.DB.Model(&model.User{}).Where("id=?", info.ID).Update("remark", info.Remark).Error
+	if err != nil {
 		common.ResFalse(c, err.Error())
 		return
 	}
@@ -66,16 +62,12 @@ func (i UserController) UpdateUser(c *gin.Context) {
 }
 
 // DeleteUsers 删除
-func (i UserController) DeleteUsers(c *gin.Context) {
-	var (
-		err error
-	)
+func (*OrmTest) DeleteUsers(c *gin.Context) {
+	var err error
+
 	//  获取id参数
-	idStr, get := c.GetQuery("id")
-	if !get {
-		common.ResFalse(c, "获取id参数失败")
-		return
-	}
+	idStr, _ := c.GetQuery("id")
+
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
 		common.ResFalse(c, "参入参数id格式不正确")
@@ -89,13 +81,8 @@ func (i UserController) DeleteUsers(c *gin.Context) {
 	common.ResSuccess(c, nil)
 }
 
-type GetByTimeParam struct {
-	Time1 string `json:"time1"`
-	Time2 string `json:"time2"`
-}
-
 // GetByTime 通过时间获取
-func (i UserController) GetByTime(c *gin.Context) {
+func (*OrmTest) GetByTime(c *gin.Context) {
 	var (
 		db    = model.DB
 		infos = []model.User{}

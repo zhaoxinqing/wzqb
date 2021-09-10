@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"Kilroy/app/auth"
 	"Kilroy/app/common"
 	"Kilroy/app/logic"
 	"Kilroy/util"
@@ -22,9 +21,16 @@ func (i Demo) TestGet(c *gin.Context) {
 	// common.ResFalse(c, "错误的id参数")
 }
 
+type A struct {
+	ID    int64  `json:"id"`
+	Name  string `json:"name"`
+	Phone string `json:"phone"`
+	Err   string `json:"err"`
+}
+
 // 创建
 func (i Demo) TestPost(c *gin.Context) {
-	var a auth.A
+	var a A
 	// 入参解析校验
 	err := c.BindJSON(&a)
 	if err != nil {
@@ -32,7 +38,7 @@ func (i Demo) TestPost(c *gin.Context) {
 		return
 	}
 	// 逻辑处理
-	b, err := logic.Demo(a)
+	b, err := logic.Demo()
 	if err != nil {
 		common.ResFalse(c, err.Error())
 		return
@@ -107,12 +113,6 @@ func (i Demo) HtmlToPDF(c *gin.Context) {
 	// 执行逻辑
 	result, err := util.HTMLtoPDF(filePath)
 	common.ResSuccess(c, result)
-}
-
-type PostParam struct {
-	Name      string // 名称
-	Age       int64  // 年龄
-	Operation string // 操作
 }
 
 func (i Demo) GetTestPostParam(c *gin.Context) (param PostParam, msg string) {
