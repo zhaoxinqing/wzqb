@@ -15,4 +15,7 @@ func Register(app *gin.RouterGroup) {
 	app.PUT("orm/update", orm.UpdateUser)     // 编辑更新用户信息
 	app.DELETE("orm/delete", orm.DeleteUsers) // 抹除用户信息
 	app.GET("orm/time", orm.GetByTime)        // 通过时间获取
+
+	// 结构体转化
+	app.GET("test/struct", controller.StructToStruct)
 }
