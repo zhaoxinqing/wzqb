@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"Moonlight/app/common"
 	"fmt"
 
 	"github.com/gin-gonic/gin"
@@ -52,4 +53,16 @@ func StructToStruct(c *gin.Context) {
 	if err := gconv.Struct(result, &body); err != nil {
 		fmt.Println(err)
 	}
+}
+
+func StrTime(c *gin.Context) {
+	//  获取id参数
+	time, _ := c.GetQuery("time")
+	var a string
+	if len(time) > 20 {
+		a = time[0:10] + " " + time[11:19]
+	}
+
+	fmt.Println(a)
+	common.ResSuccess(c, a)
 }

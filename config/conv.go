@@ -6,7 +6,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const ConfigPath = "config/conf.yaml"
+const ConfigPath = "./conf.yaml"
 
 // yaml配置文件
 type Yaml struct {

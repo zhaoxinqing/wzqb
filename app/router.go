@@ -18,4 +18,6 @@ func Register(app *gin.RouterGroup) {
 
 	// 结构体转化
 	app.GET("test/struct", controller.StructToStruct)
+
+	app.GET("test/time", controller.StrTime)
 }
