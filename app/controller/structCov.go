@@ -3,6 +3,7 @@ package controller
 import (
 	"Moonlight/app/common"
 	"fmt"
+	"math"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gogf/gf/util/gconv"
@@ -64,5 +65,7 @@ func StrTime(c *gin.Context) {
 	}
 
 	fmt.Println(a)
-	common.ResSuccess(c, a)
+	n := 14.6455
+	num := math.Pow(2, n)
+	common.ResSuccess(c, num)
 }

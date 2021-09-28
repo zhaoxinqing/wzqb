@@ -21,10 +21,3 @@ func StrToInt64(str string) (int64, error) {
 	int64Num := int64(intNum)
 	return int64Num, err
 }
-
-// StrToUint64 ...
-func StrToUint64(str string) (uint64, error) {
-	intNum, err := strconv.Atoi(str)
-	uint64Num := uint64(intNum)
-	return uint64Num, err
-}

@@ -1,0 +1,12 @@
+postgres:
+  host: localhost
+  port: 9900
+  user: 
+  password:
+  dbname: kilroy
+redis:
+  host: 127.0.0.1
+  port: 6379
+  user:
+  password: 
+

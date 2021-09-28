@@ -1,7 +1,7 @@
 package util
 
 // IsContainInt64 ...
-func IsContainInt64(items []int64, item int64) bool {
+func IsContainNumber(items []int64, item int64) bool {
 	for _, eachItem := range items {
 		if eachItem == item {
 			return true
@@ -20,8 +20,8 @@ func IsContainString(items []string, item string) bool {
 	return false
 }
 
-// RemoveDupInt64 ...
-func RemoveDupInt64(items []int64) []int64 {
+// RemoveDupNumber ...
+func RemoveDupNumber(items []int64) []int64 {
 	result := make([]int64, 0, len(items))
 	tempMap := map[int64]byte{}
 	for _, eachItem := range items {

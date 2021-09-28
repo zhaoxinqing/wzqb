@@ -77,7 +77,7 @@ func (i Demo) UploadTable(c *gin.Context) {
 		return
 	}
 	// 保存临时文件
-	err = os.MkdirAll("doc/temp", 0777)
+	os.MkdirAll("doc/temp", 0777)
 	filePath := "doc/temp/" + fmt.Sprintf("%d_", time.Now().Unix()) + file.Filename
 	err = c.SaveUploadedFile(file, filePath)
 	if err != nil {
@@ -85,33 +85,7 @@ func (i Demo) UploadTable(c *gin.Context) {
 		return
 	}
 	// 执行逻辑
-	result, err := util.ReadExcel(filePath)
-	common.ResSuccess(c, result)
-}
-
-// 删除
-func (i Demo) HtmlToPDF(c *gin.Context) {
-	file, err := c.FormFile("html")
-	if err != nil {
-		common.ResFalse(c, err.Error()+"（获取上传文件失败）")
-		return
-	}
-	// 判断文件格式
-	fileType := util.ExtractFileType(file.Filename)
-	if fileType != "html" {
-		common.ResFalse(c, "请上传正确的文件格式")
-		return
-	}
-	// 保存临时文件
-	err = os.MkdirAll("doc/temp", 0777)
-	filePath := "doc/temp/" + fmt.Sprintf("%d_", time.Now().Unix()) + file.Filename
-	err = c.SaveUploadedFile(file, filePath)
-	if err != nil {
-		common.ResFalse(c, err.Error())
-		return
-	}
-	// 执行逻辑
-	result, err := util.HTMLtoPDF(filePath)
+	result, _ := util.ReadExcel(filePath)
 	common.ResSuccess(c, result)
 }
 
