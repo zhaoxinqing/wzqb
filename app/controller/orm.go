@@ -8,6 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type OrmTest struct{}
+
 // CreateUser 添加
 func (*OrmTest) CreateUser(c *gin.Context) {
 	var (

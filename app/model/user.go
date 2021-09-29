@@ -1,6 +1,6 @@
 package model
 
-import "Moonlight/util"
+import "time"
 
 // Users 后台用户
 type User struct {
@@ -9,8 +9,8 @@ type User struct {
 	Age       int64     `gorm:"age" json:"age"`       // 年龄
 	Sex       string    `gorm:"sex" json:"sex"`       // 性别：0女、1男、2未知
 	Remark    string    `gorm:"remark" json:"remark"` // 备注
-	CreatedAt util.Time `gorm:"created_at" json:"-"`  //
-	UpdatedAt util.Time `gorm:"updated_at" json:"-"`  //
+	CreatedAt time.Time `gorm:"created_at" json:"-"`  //
+	UpdatedAt time.Time `gorm:"updated_at" json:"-"`  //
 }
 
 // TableName 表名

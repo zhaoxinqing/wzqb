@@ -1,4 +1,4 @@
-package util
+package utils
 
 import (
 	"fmt"
@@ -15,4 +15,13 @@ func GetBetweenTime(msg string) {
 	defer func(start time.Time) {
 		fmt.Println(msg, time.Since(start))
 	}(start)
+}
+
+// time
+func Util(a string) string {
+	// time
+	timeNow := time.Now().Format(TimeFormart)
+	fmt.Println(timeNow)
+	return timeNow
+
 }

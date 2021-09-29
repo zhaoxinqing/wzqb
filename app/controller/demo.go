@@ -2,8 +2,7 @@ package controller
 
 import (
 	"Moonlight/app/common"
-	"Moonlight/app/logic"
-	"Moonlight/util"
+	"Moonlight/utils"
 	"fmt"
 	"os"
 	"time"
@@ -12,6 +11,17 @@ import (
 )
 
 type Demo struct{}
+
+type PostParam struct {
+	Name      string // 名称
+	Age       int64  // 年龄
+	Operation string // 操作
+}
+
+type GetByTimeParam struct {
+	Time1 string `json:"time1"`
+	Time2 string `json:"time2"`
+}
 
 // 获取
 func (i Demo) TestGet(c *gin.Context) {
@@ -37,13 +47,8 @@ func (i Demo) TestPost(c *gin.Context) {
 		common.ResFalse(c, common.ErrParam)
 		return
 	}
-	// 逻辑处理
-	b, err := logic.Demo()
-	if err != nil {
-		common.ResFalse(c, err.Error())
-		return
-	}
-	common.ResSuccess(c, b)
+
+	common.ResSuccess(c, a)
 }
 
 type UploadMessage struct {
@@ -71,7 +76,7 @@ func (i Demo) UploadTable(c *gin.Context) {
 		return
 	}
 	// 判断文件格式
-	fileType := util.ExtractFileType(file.Filename)
+	fileType := utils.ExtractFileType(file.Filename)
 	if fileType != "xlsx" {
 		common.ResFalse(c, "请上传xlsx表格格式")
 		return
@@ -85,7 +90,7 @@ func (i Demo) UploadTable(c *gin.Context) {
 		return
 	}
 	// 执行逻辑
-	result, _ := util.ReadExcel(filePath)
+	result, _ := utils.ReadExcel(filePath)
 	common.ResSuccess(c, result)
 }
 

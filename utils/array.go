@@ -1,4 +1,4 @@
-package util
+package utils
 
 // IsContainInt64 ...
 func IsContainNumber(items []int64, item int64) bool {

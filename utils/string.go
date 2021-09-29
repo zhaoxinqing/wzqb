@@ -1,4 +1,4 @@
-package util
+package utils
 
 import (
 	"strconv"
@@ -11,8 +11,9 @@ func StrToFloat64(str string) (floatValue float64, err error) {
 }
 
 // StrToInt ...
-func StrToInt(str string) (int, error) {
-	return strconv.Atoi(str)
+func StrToInt(str string) int {
+	v, _ := strconv.Atoi(str)
+	return v
 }
 
 // StrToInt64 ...
