@@ -34,6 +34,7 @@ type Redis struct {
 	Port     string `yaml:"port"`
 	User     string `yaml:"user"`
 	Password string `yaml:"password"`
+	DB       int    `yaml:"db"`
 }
 
 //  GetConfig ...
@@ -58,7 +59,6 @@ func InitDB() {
 	if err != nil {
 		panic("数据库：配置连接失败")
 	}
-	db.Debug()
 	autoMigrate(db)
 	model.DB = db
 }

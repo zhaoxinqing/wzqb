@@ -3,7 +3,6 @@ package controller
 import (
 	"Moonlight/app/common"
 	"fmt"
-	"math"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gogf/gf/util/gconv"
@@ -57,15 +56,14 @@ func StructToStruct(c *gin.Context) {
 }
 
 func StrTime(c *gin.Context) {
+	var time1 = "2021-09-30T18:02:13.976175Z"
 	//  获取id参数
-	time, _ := c.GetQuery("time")
-	var a string
-	if len(time) > 20 {
-		a = time[0:10] + " " + time[11:19]
-	}
+	// time, _ := c.GetQuery("time")
+	// var a string
+	// if len(time) > 20 {
+	// 	a = time[0:10] + " " + time[11:19]
+	// }
 
-	fmt.Println(a)
-	n := 14.6455
-	num := math.Pow(2, n)
+	num := time1[:10] + " " + time1[11:19]
 	common.ResSuccess(c, num)
 }

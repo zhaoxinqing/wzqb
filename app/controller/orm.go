@@ -96,7 +96,7 @@ func (*OrmTest) GetByTime(c *gin.Context) {
 
 	// time.Sleep(1 * time.Second)
 
-	err = db.Debug().Model(&model.User{}).Where("updated_at between ? and ? ", time1, time2).
+	err = db.Model(&model.User{}).Where("updated_at between ? and ? ", time1, time2).
 		Find(&infos).Error
 	if err != nil {
 		common.ResFalse(c, err.Error())
