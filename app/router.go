@@ -24,7 +24,7 @@ func Register(app *gin.RouterGroup) {
 	app.GET("test/time", controller.StrTime)
 
 	// upload\download
-	app.POST("file/upload", controller.Upload)
+	app.POST("file/upload", controller.GenerateAOI)
 	app.GET("file/download", controller.Download)
 	app.PUT("file/edit", controller.Edit)
 

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -15,6 +16,8 @@ func main() {
 		fmt.Println("这是测试")
 	case "del_temp_dir":
 		delTempDir()
+	case "string":
+		StringStr()
 	default:
 		fmt.Println("Do Nothing")
 	}
@@ -31,3 +34,16 @@ func delTempDir() {
 
 // go run script/script.go aa
 // go run script/script.go deleteReport
+
+func StringStr() {
+	var (
+		addr = "榆林市神木市大柳塔镇"
+		city = "榆林市"
+		desc = "神木市"
+		// st   = "1"
+	)
+	addr = strings.Trim(addr, city)
+	addr = strings.Trim(addr, desc)
+	fmt.Println(addr)
+
+}
