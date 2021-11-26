@@ -2,14 +2,11 @@ package middleware
 
 import (
 	"Moonlight/app/common"
-	"Moonlight/config"
-	"context"
 	"strings"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/go-redis/redis/v8"
 	"github.com/google/uuid"
 )
 
@@ -85,42 +82,42 @@ func UserAuthMiddleware(skipper ...SkipperFunc) gin.HandlerFunc {
 
 // AddTokenToRedis 用户登录，添加账户系统返回的token到redis
 func AddTokenToRedis(token string, userIDStr string) (err error) {
-	var (
-		ctx  = context.Background()
-		conf = config.GetConfig()
-	)
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     conf.Redis.Host,
-		Password: conf.Redis.Password,
-		DB:       conf.Redis.DB,
-	})
-	err = rdb.SetEX(ctx, token, userIDStr, time.Hour*12).Err()
-	if err != nil {
-		panic(err)
-	}
-	rdb.Close()
+	// var (
+	// 	ctx  = context.Background()
+	// 	conf = config.GetConfig()
+	// )
+	// rdb := redis.NewClient(&redis.Options{
+	// 	Addr:     conf.Redis.Host,
+	// 	Password: conf.Redis.Password,
+	// 	DB:       conf.Redis.DB,
+	// })
+	// err = rdb.SetEX(ctx, token, userIDStr, time.Hour*12).Err()
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// rdb.Close()
 	return
 }
 
 // GetTokenFromRedis 从redis中查询时候token是否存在
 func GetTokenFromRedis(token string) (isPass bool, err error) {
-	var (
-		ctx  = context.Background()
-		conf = config.GetConfig()
-	)
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     conf.Redis.Host,
-		Password: conf.Redis.Password,
-		DB:       conf.Redis.DB,
-	})
-	n, err := rdb.Exists(ctx, token).Result()
-	if err != nil {
-		panic(err)
-	}
-	isPass = false
-	if n > 0 {
-		isPass = true
-	}
-	rdb.Close()
+	// var (
+	// 	ctx  = context.Background()
+	// 	conf = config.GetConfig()
+	// )
+	// rdb := redis.NewClient(&redis.Options{
+	// 	Addr:     conf.Redis.Host,
+	// 	Password: conf.Redis.Password,
+	// 	DB:       conf.Redis.DB,
+	// })
+	// n, err := rdb.Exists(ctx, token).Result()
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// isPass = false
+	// if n > 0 {
+	// 	isPass = true
+	// }
+	// rdb.Close()
 	return
 }
