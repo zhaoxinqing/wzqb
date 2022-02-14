@@ -1,9 +1,0 @@
-# ignore .idea folder
-.idea/
-
-# ignore .vscode folder
-/.vscode
-
-__debug_bin
-
-# conf.yaml
