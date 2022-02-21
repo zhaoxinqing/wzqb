@@ -1,6 +1,11 @@
 package model
 
-import "time"
+import (
+	"database/sql"
+	"fmt"
+	"net/http"
+	"time"
+)
 
 // Users 后台用户
 type User struct {
@@ -16,4 +21,18 @@ type User struct {
 // TableName 表名
 func (User) TableName() string {
 	return "user"
+}
+
+// 使用参数化查询，禁止拼接SQL语句，另外对于传入参数用于order by或表名的需要通过校验
+// bad
+func Handler(db *sql.DB, req *http.Request) {
+	q := fmt.Sprintf("SELECT ITEM,PRICE FROM PRODUCT WHERE ITEM_CATEGORY='%s' ORDER BY PRICE", req.URL.Query()["category"])
+	db.Query(q)
+}
+
+// good
+func HandlerGood(db *sql.DB, req *http.Request) {
+	// 使用?占位符
+	q := "SELECT ITEM,PRICE FROM PRODUCT WHERE ITEM_CATEGORY='?' ORDER BY PRICE"
+	db.Query(q, req.URL.Query()["category"])
 }
