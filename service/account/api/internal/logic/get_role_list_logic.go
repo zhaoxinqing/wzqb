@@ -3,25 +3,27 @@ package logic
 import (
 	"context"
 
+	"go-template/service/account/api/internal/svc"
+
 	"github.com/zeromicro/go-zero/core/logx"
-	"go-template/service/user/api/internal/svc"
 )
 
-type UserListLogic struct {
+type GetRoleListLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewUserListLogic(ctx context.Context, svcCtx *svc.ServiceContext) UserListLogic {
-	return UserListLogic{
+func NewGetRoleListLogic(ctx context.Context, svcCtx *svc.ServiceContext) GetRoleListLogic {
+	return GetRoleListLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *UserListLogic) UserList() error {
+// GetRoleList 获取角色列表
+func (l *GetRoleListLogic) GetRoleList() error {
 	// todo: add your logic here and delete this line
 
 	return nil

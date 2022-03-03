@@ -14,6 +14,12 @@ const (
 	AuthenticationFailed = "user authentication failed" // 用户token验证失败
 )
 
+// 、
+const (
+	IncorrectParameteFormat  = "参数格式不正确,请重试"
+	MissingRequiredParameter = "参数缺失,请重试"
+)
+
 // GetHeaderToken 获取header的token
 func GetHeaderToken(r *http.Request) string {
 	return r.Header.Get("Authorization")

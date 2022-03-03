@@ -15,18 +15,16 @@ const (
 
 // UserClaims ...
 type UserClaims struct {
-	UserID   int64  // 用户ID
-	UserName string // 用户名
-	Phone    string // 手机号
+	ID   int64  // 用户ID
+	Name string // 用户名
 	jwt.StandardClaims
 }
 
 // GenerateToken 生成token
-func GenerateToken(userID int64, userName string, phone string) (string, error) {
+func GenerateToken(userID int64, userName string) (string, error) {
 	claims := UserClaims{
-		UserID:   userID,
-		UserName: userName,
-		Phone:    phone,
+		ID:   userID,
+		Name: userName,
 		StandardClaims: jwt.StandardClaims{
 			Id:        uuid.New().String(),
 			ExpiresAt: time.Now().Add(time.Hour * time.Duration(ExpiresTime)).Unix(),

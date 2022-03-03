@@ -1,0 +1,31 @@
+type (
+	// 资源地图
+	ResourceMapParam {
+		Code string `json:"code"` // 城市code
+	}
+	// 资源列表
+	ResourceListParam {
+		Code string `json:"code"` // 城市code
+	}
+	// 城市查询
+	MapRegionParam {
+		SouthWest []float64 `json:"southWest"`
+		NorthEast []float64 `json:"northEast"`
+		Zoom      float64   `json:"zoom"`
+	}
+)
+
+// 资源
+service resource {
+	// 资源地图
+	@handler ResourceMap
+	post /api/resource/map (ResourceMapParam)
+	
+	// 资源地图-根据缩放等级获取行政区归属
+	@handler MapRegion
+	post /api/resource/map/region (MapRegionParam)
+	
+	// 资源列表
+	@handler ResourceList
+	post /api/resource/list (ResourceListParam)
+}

@@ -4,15 +4,15 @@ import (
 	"flag"
 	"fmt"
 
-	"go-template/service/user/api/internal/config"
-	"go-template/service/user/api/internal/handler"
-	"go-template/service/user/api/internal/svc"
+	"go-template/service/account/api/internal/config"
+	"go-template/service/account/api/internal/handler"
+	"go-template/service/account/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
 )
 
-var configFile = flag.String("f", "etc/user.yaml", "the config file")
+var configFile = flag.String("f", "etc/account.yaml", "the config file")
 
 func main() {
 	flag.Parse()
