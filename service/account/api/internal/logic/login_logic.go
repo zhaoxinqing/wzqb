@@ -6,7 +6,7 @@ import (
 	"log"
 
 	"go-template/common"
-	"go-template/common/middleware"
+	"go-template/middleware"
 	"go-template/service/account/api/internal/svc"
 	"go-template/service/account/api/internal/types"
 	"go-template/service/account/model"
