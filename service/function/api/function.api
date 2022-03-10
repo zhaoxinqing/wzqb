@@ -1,0 +1,11 @@
+type (
+	ChromedpParam {
+		URL string `json:"url"`
+	}
+)
+
+// 账户模块
+service function {
+	@handler Chromedp
+	post /api/function/chromedp (ChromedpParam)
+}

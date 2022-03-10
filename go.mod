@@ -3,6 +3,7 @@ module go-template
 go 1.17
 
 require (
+	github.com/SebastiaanKlippert/go-wkhtmltopdf v1.7.2
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gogf/gf v1.16.6
 	github.com/google/uuid v1.3.0
@@ -10,6 +11,7 @@ require (
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/spatial-go/geoos v1.0.4
 	github.com/zeromicro/go-zero v1.3.0
+	golang.org/x/sys v0.0.0-20220209214540-3681064d5158
 	gorm.io/driver/postgres v1.3.1
 	gorm.io/gorm v1.23.2
 )
@@ -48,7 +50,6 @@ require (
 	go.uber.org/automaxprocs v1.4.0 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
-	golang.org/x/sys v0.0.0-20220111092808-5a964db01320 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/grpc v1.43.0 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
