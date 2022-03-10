@@ -4,6 +4,8 @@ go 1.17
 
 require (
 	github.com/SebastiaanKlippert/go-wkhtmltopdf v1.7.2
+	github.com/chromedp/cdproto v0.0.0-20220304215434-892afa710589
+	github.com/chromedp/chromedp v0.7.8
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gogf/gf v1.16.6
 	github.com/google/uuid v1.3.0
@@ -20,8 +22,12 @@ require (
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
+	github.com/chromedp/sysutil v1.0.0 // indirect
 	github.com/go-logr/logr v1.2.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
+	github.com/gobwas/httphead v0.1.0 // indirect
+	github.com/gobwas/pool v0.2.1 // indirect
+	github.com/gobwas/ws v1.1.0 // indirect
 	github.com/gofrs/uuid v4.2.0+incompatible // indirect
 	github.com/golang-jwt/jwt/v4 v4.2.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
@@ -35,7 +41,9 @@ require (
 	github.com/jackc/pgx/v4 v4.14.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
+	github.com/josharian/intern v1.0.0 // indirect
 	github.com/justinas/alice v1.2.0 // indirect
+	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/openzipkin/zipkin-go v0.4.0 // indirect
 	github.com/prometheus/client_golang v1.11.0 // indirect
