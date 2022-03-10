@@ -10,6 +10,7 @@ require (
 	github.com/jinzhu/copier v0.3.5
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/spatial-go/geoos v1.0.4
+	github.com/tealeg/xlsx v1.0.5
 	github.com/zeromicro/go-zero v1.3.0
 	golang.org/x/sys v0.0.0-20220209214540-3681064d5158
 	gorm.io/driver/postgres v1.3.1
