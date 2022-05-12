@@ -1,4 +1,4 @@
-package newcelebration
+package wzqb
 
 import (
 	"encoding/json"
