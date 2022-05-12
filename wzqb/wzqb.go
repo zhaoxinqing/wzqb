@@ -2,6 +2,7 @@ package wzqb
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -25,4 +26,11 @@ func Login(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, resp)
+}
+
+// ArrayToString ...
+func ArrayToString(c *gin.Context) {
+	wzList := []string{"aaaaa", "sssss", "hhhhh", "ujjj"}
+	resp := strings.Join(wzList, ",")
+	c.String(http.StatusOK, resp)
 }

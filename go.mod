@@ -7,6 +7,7 @@ require (
 	github.com/chromedp/cdproto v0.0.0-20220304215434-892afa710589
 	github.com/chromedp/chromedp v0.7.8
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/gin-gonic/gin v1.7.7
 	github.com/gogf/gf v1.16.6
 	github.com/google/uuid v1.3.0
 	github.com/jinzhu/copier v0.3.5
@@ -14,7 +15,7 @@ require (
 	github.com/spatial-go/geoos v1.0.4
 	github.com/tealeg/xlsx v1.0.5
 	github.com/zeromicro/go-zero v1.3.0
-	golang.org/x/sys v0.0.0-20220503163025-988cb79eb6c6
+	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/driver/postgres v1.3.1
 	gorm.io/gorm v1.23.2
 )
@@ -24,7 +25,6 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
 	github.com/chromedp/sysutil v1.0.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-gonic/gin v1.7.7 // indirect
 	github.com/go-logr/logr v1.2.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
@@ -70,8 +70,8 @@ require (
 	go.uber.org/automaxprocs v1.4.0 // indirect
 	golang.org/x/crypto v0.0.0-20220507011949-2cf3adece122 // indirect
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd // indirect
+	golang.org/x/sys v0.0.0-20220503163025-988cb79eb6c6 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/grpc v1.43.0 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

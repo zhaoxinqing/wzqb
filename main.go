@@ -1,21 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"go-template/wzqb"
-	"io/ioutil"
 
 	"github.com/gin-gonic/gin"
-	"gopkg.in/yaml.v2"
 )
 
 func main() {
 	// config
-	conf := GetConfigInformation("config.yanml")
-	fmt.Println(conf)
+	// conf := GetConfigInformation("config.yanml")
+	// fmt.Println(conf)
 	// Creates a router without any middleware by default
 	r := gin.Default()
-
+	r.SetTrustedProxies([]string{"192.168.20.35"})
 	// Per route middleware, you can add as many as you desire.
 	r.GET("/benchmark", wzqb.GetAllMenu)
 
@@ -27,39 +24,14 @@ func main() {
 	// AuthRequired() middleware just in the "authorized" group.
 	authorized.Use()
 	{
-		authorized.POST("/login", wzqb.Login)
+		authorized.POST("/login", wzqb.Login)                  // login
+		authorized.GET("/array_to_string", wzqb.ArrayToString) // ArrayToString
 
-		// // nested group
-		// testing := authorized.Group("testing")
-		// visit 0.0.0.0:8080/testing/analytics
-		// testing.GET("/analytics", analyticsEndpoint)
+		// nested group
+		testing := authorized.Group("/data")
+		testing.GET("/analytics", wzqb.ArrayToString)
 	}
 
 	// Listen and serve on 0.0.0.0:8080
 	r.Run(":8080")
-}
-
-// ConfigInformation config info
-type ConfigInformation struct {
-	DB struct {
-		Host   string `yaml:"host"`
-		User   string `yaml:"user"`
-		Pwd    string `yaml:"pwd"`
-		DBname string `yaml:"dbname"`
-	} `yaml:"db"`
-}
-
-// GetConfigInformation 获取配置信息
-func GetConfigInformation(configPath string) (conf ConfigInformation) {
-	// read
-	yamlFile, err := ioutil.ReadFile(configPath)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	// unmarshal
-	err = yaml.Unmarshal(yamlFile, &conf)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	return
 }
