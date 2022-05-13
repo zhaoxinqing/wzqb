@@ -1,4 +1,4 @@
-module go-template
+module wzqb
 
 go 1.17
 
@@ -8,6 +8,7 @@ require (
 	github.com/chromedp/chromedp v0.7.8
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.7.7
+	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/gogf/gf v1.16.6
 	github.com/google/uuid v1.3.0
 	github.com/jinzhu/copier v0.3.5

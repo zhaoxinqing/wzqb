@@ -4,7 +4,7 @@ package handler
 import (
 	"net/http"
 
-	"go-template/service/function/api/internal/svc"
+	"wzqb/service/function/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )

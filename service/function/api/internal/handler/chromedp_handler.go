@@ -3,10 +3,10 @@ package handler
 import (
 	"net/http"
 
-	"go-template/common"
-	"go-template/service/function/api/internal/logic"
-	"go-template/service/function/api/internal/svc"
-	"go-template/service/function/api/internal/types"
+	"wzqb/common"
+	"wzqb/service/function/api/internal/logic"
+	"wzqb/service/function/api/internal/svc"
+	"wzqb/service/function/api/internal/types"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 )

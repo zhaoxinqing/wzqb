@@ -1,7 +1,7 @@
 package svc
 
 import (
-	"go-template/service/function/api/internal/config"
+	"wzqb/service/function/api/internal/config"
 )
 
 type ServiceContext struct {

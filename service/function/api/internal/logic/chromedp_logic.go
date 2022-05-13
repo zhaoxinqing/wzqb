@@ -6,8 +6,8 @@ import (
 	"log"
 	"time"
 
-	"go-template/service/function/api/internal/svc"
-	"go-template/service/function/api/internal/types"
+	"wzqb/service/function/api/internal/svc"
+	"wzqb/service/function/api/internal/types"
 
 	"github.com/SebastiaanKlippert/go-wkhtmltopdf"
 	"github.com/zeromicro/go-zero/core/logx"

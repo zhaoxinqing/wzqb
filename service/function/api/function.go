@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 
-	"go-template/service/function/api/internal/config"
-	"go-template/service/function/api/internal/handler"
-	"go-template/service/function/api/internal/svc"
+	"wzqb/service/function/api/internal/config"
+	"wzqb/service/function/api/internal/handler"
+	"wzqb/service/function/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"

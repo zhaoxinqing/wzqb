@@ -1,7 +1,7 @@
 package app
 
 import (
-	"go-template/wzqb"
+	"wzqb/wzqb"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,18 +12,19 @@ func RegisterRouter(r *gin.Engine) {
 	// Authorization group
 	// authorized := r.Group("/", AuthRequired())
 	// exactly the same as:
-	authorized := r.Group("/api")
+	api := r.Group("/api")
 	// Per route middleware, you can add as many as you desire.
 	r.Use()
 	// per group middleware! in this case we use the custom created
 	// AuthRequired() middleware just in the "authorized" group.
-	authorized.Use()
+	api.Use()
 	{
-		authorized.POST("/login", wzqb.Login)                  // login
-		authorized.GET("/array_to_string", wzqb.ArrayToString) // ArrayToString
+		user := api.Group("/user")
+		user.POST("/login", wzqb.Login)                  // login
+		user.GET("/array_to_string", wzqb.ArrayToString) // ArrayToString
 
 		// nested group
-		testing := authorized.Group("/data")
-		testing.GET("/analytics", wzqb.ArrayToString)
+		data := api.Group("/data")
+		data.GET("/analytics", wzqb.ArrayToString)
 	}
 }
